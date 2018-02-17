@@ -1,11 +1,7 @@
-package util;
+
 
 import java.util.Hashtable;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class DicBuild{
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -36,7 +32,7 @@ public class DicBuild{
         	}
     	}
     	reader.close();
-    	
+
     	double ingrCate[][] = new double[j][i];
     	double ingrSub[][] = new double[l][i];
 
@@ -69,6 +65,25 @@ public class DicBuild{
     			}
     		}
     	}
+        FileOutputStream file1 = new FileOutputStream("ingredient.ser");
+        ObjectOutputStream out1 = new ObjectOutputStream(file1);
+        out1.writeObject(ingredient);
+        out1.close();
+        file1.close();
+/*
+        FileOutputStream file = new FileOutputStream(filename);
+        ObjectOutputStream out = new ObjectOutputStream(file);
+        out.writeObject(object);
+        out.close();
+        file.close();
+
+        FileOutputStream file = new FileOutputStream(filename);
+        ObjectOutputStream out = new ObjectOutputStream(file);
+        out.writeObject(object);
+        out.close();
+        file.close();
+*/
+
 	}
 }
 

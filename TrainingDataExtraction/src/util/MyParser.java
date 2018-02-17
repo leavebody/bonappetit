@@ -48,8 +48,17 @@ public class MyParser {
      *          or null is input is invalid
      */
     public static ArrayList<double[]> CookbookHTMLParser(String html){
-        
-        
+        int index1 = html.indexOf("title=\"Edit section: Ingredients\"");
+        int index2 = html.indexOf("<ul>", index1);
+        int index3 = html.indexOf("<h2>", index2);
+        String target = html.substring(index2+4, index3);
+        target.replace("<", " < ");
+        target.replace(">", " > ");
+        String[] temp = target.split(" ");
+        for (String s : temp) {
+            
+        } 
+
         return null;
     }
 
