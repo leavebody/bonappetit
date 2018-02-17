@@ -55,14 +55,24 @@ public class ApiService {
      * Get the ingredients from an official dish name.
      */
     public static void getIngredients(final Context c, String rawName, final ServiceCallBack<ArrayList<String>> callback) {
-        String url = "https://www.bing.com/search?q="+rawName.replace(" ", "+");
-        ApiRequest request = new ApiRequest(c);
-        request.htmlRequest(new VolleyCallback() {
+
+        getCookbookName(c, rawName, new ServiceCallBack<String>() {
             @Override
-            public void onSuccess(NetworkResponse response) {
-                callback.getModelOnSuccess(getIngredientsRespProcess(response));
+            public void getModelOnSuccess(ModelResult<String> modelResult) {
+                if (modelResult.isStatus()) {
+                    String url = "https://www.bing.com/search?q=" + modelResult.getModel();
+                    ApiRequest request = new ApiRequest(c);
+                    request.htmlRequest(new VolleyCallback() {
+                        @Override
+                        public void onSuccess(NetworkResponse response) {
+                            callback.getModelOnSuccess(getIngredientsRespProcess(response));
+                        }
+                    }, url);
+                } else {
+                    callback.getModelOnSuccess(new ModelResult<ArrayList<String>>());
+                }
             }
-        }, url);
+        });
     }
 
     private static ModelResult<ArrayList<String>> getIngredientsRespProcess(NetworkResponse response) {
@@ -98,17 +108,17 @@ public class ApiService {
 
     private static ModelResult<String> getCookbookNameRespProcess(NetworkResponse response) {
         ModelResult<String> result = new ModelResult();
-        ArrayList<String> ingredients;
+        String cookbookName;
 
         String html = NetworkResponseRequest.parseToString(response);
 
         if (response.statusCode == 200) {
             result.setStatus(true);
-            ingredients = MyParser.CookbookHTMLParser(html);
-            result.setModel(ingredients);
+            cookbookName = MyParser.CookbookSearchHTMLParser(html);
+            result.setModel(cookbookName);
         } else {
             result.setStatus(false);
-            Log.d("ApiService", "ingredients status code: " + response.statusCode);
+            Log.d("ApiService", "cookbook name status code: " + response.statusCode);
         }
         return result;
     }

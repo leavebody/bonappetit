@@ -1,21 +1,11 @@
-package com.hophacks2018.bonappetit.bonappetit.models;
-
-import android.graphics.Bitmap;
-
-/**
- * @author Xiaochen Li
- */
 
 public class Food {
     private String rawName; // The name recognized from the menu.
     private String name; // The official name of this dish.
     private String description; // Detailed description of the dish got from google knowledge graph.
-    private Bitmap image; //
     private double[] ingredientRawVector;
     private double[] subcataRawVector;
     private double[] cataRawVector;
-    private double[] featureVector;
-    // todo add info about the position of the item in the menu image
 
     public String getName() {
         return name;
@@ -31,14 +21,6 @@ public class Food {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Bitmap getImage() {
-        return image;
-    }
-
-    public void setImage(Bitmap image) {
-        this.image = image;
     }
 
     public String getRawName() {

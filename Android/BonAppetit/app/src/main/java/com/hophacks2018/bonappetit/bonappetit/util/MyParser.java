@@ -20,13 +20,14 @@ public class MyParser {
     }
 
     /**
-     * Get a list of ingredients of the dish from html string of the cookbook web page.
+     * Get vectors of raw features of the dish from html string of the cookbook web page.
      * @param html raw html code of the web page
-     * @return a list of ingredients
+     * @return Arraylist<double[] ingredientRawVector, double[] subcataRawVector, double[] cataRawVector>
+     *          or null is input is invalid
      */
-    public static ArrayList<String> CookbookHTMLParser(String html){
+    public static ArrayList<double[]> CookbookHTMLParser(String html){
         //todo
-        return new ArrayList<String>();
+        return null;
     }
 
     /**

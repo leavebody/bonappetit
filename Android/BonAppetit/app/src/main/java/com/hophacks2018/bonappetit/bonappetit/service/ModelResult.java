@@ -10,7 +10,7 @@ package com.hophacks2018.bonappetit.bonappetit.service;
 
 public class ModelResult <T> {
     private T model;
-    private boolean status;
+    private boolean status = false;
 
     public final boolean isStatus() {
         return status;
