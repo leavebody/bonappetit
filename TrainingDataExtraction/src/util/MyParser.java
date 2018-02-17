@@ -13,9 +13,9 @@ public class MyParser {
     public static String BingHTMLParser(String html){
         //todo
     	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
-    	temp = null;
-    	start = index - 1
-    	end = start + 9
+    	String temp = null;
+    	int start = index - 1
+    	int end = start + 9
 		while(html.substring(start,end)!="<strong>" && start > 0){
 			temp = html.substring(start,end);
 			start--;
