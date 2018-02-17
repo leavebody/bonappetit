@@ -31,9 +31,9 @@ public class Food {
     }
 
     public String getTurName() {
-        if (this.name == null){
-            return null;
-        }
+//        if (this.name == null){
+//            return null;
+//        }
         String splited =  this.name.replaceAll("\\s", "+");
         String URL = "https://en.wikibooks.org/w/index.php?search=" + splited;
         HTTPGetter getOfficial = new HTTPGetter(URL);
@@ -46,9 +46,9 @@ public class Food {
 
     public String setDescription() {
         //https://en.wikibooks.org/wiki/Cookbook:Mapo_Doufu
-        if (this.cookname == null){
-            return null;
-        }
+//        if (this.cookname == null){
+//            return null;
+//        }
         String URL = "https://en.wikibooks.org/wiki/Cookbook:" + this.cookname;
         HTTPGetter getOfficial = new HTTPGetter(URL);
         String html1 = getOfficial.getHTML();
@@ -88,7 +88,7 @@ public class Food {
     }
 
     static public void main(String[] args) {
-        Food obj = new Food("mango lessi");
+        Food obj = new Food("Hulatang");
         String realName = obj.getName();
         System.out.println (realName);
         String aa = obj.getTurName();
