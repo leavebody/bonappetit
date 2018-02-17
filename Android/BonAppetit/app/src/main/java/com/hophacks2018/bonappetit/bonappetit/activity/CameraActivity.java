@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 
 import com.hophacks2018.bonappetit.bonappetit.R;
+import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
+import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
+import com.hophacks2018.bonappetit.bonappetit.service.ServiceCallBack;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,7 +43,14 @@ public class CameraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
-
+        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
+            @Override
+            public void getModelOnSuccess(ModelResult<String> modelResult) {
+                if (modelResult.isStatus()){
+                    Log.d("asdfgh", modelResult.getModel());
+                }
+            }
+        });
         captureButton = (Button) findViewById(R.id.button_capture);
         preview = (FrameLayout) findViewById(R.id.camera_preview);
 
