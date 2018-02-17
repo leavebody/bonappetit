@@ -52,9 +52,9 @@ public class ApiService {
     }
 
     /**
-     * Get the ingredients from an official dish name.
+     * Get the feature from an official dish name.
      */
-    public static void getIngredients(final Context c, String rawName, final ServiceCallBack<ArrayList<String>> callback) {
+    public static void getFeature(final Context c, String rawName, final ServiceCallBack<double[]> callback) {
 
         getCookbookName(c, rawName, new ServiceCallBack<String>() {
             @Override
@@ -65,29 +65,33 @@ public class ApiService {
                     request.htmlRequest(new VolleyCallback() {
                         @Override
                         public void onSuccess(NetworkResponse response) {
-                            callback.getModelOnSuccess(getIngredientsRespProcess(response));
+                            callback.getModelOnSuccess(getFeatureRespProcess(response));
                         }
                     }, url);
                 } else {
-                    callback.getModelOnSuccess(new ModelResult<ArrayList<String>>());
+                    callback.getModelOnSuccess(new ModelResult<double[]>());
                 }
             }
         });
     }
 
-    private static ModelResult<ArrayList<String>> getIngredientsRespProcess(NetworkResponse response) {
-        ModelResult<ArrayList<String>> result = new ModelResult();
-        ArrayList<String> ingredients;
+    private static ModelResult<double[]> getFeatureRespProcess(NetworkResponse response) {
+        ModelResult<double[]> result = new ModelResult();
+        ArrayList<double[]> ingredients;
 
         String html = NetworkResponseRequest.parseToString(response);
 
         if (response.statusCode == 200) {
             result.setStatus(true);
-            ingredients = MyParser.CookbookHTMLParser(html);
-            result.setModel(ingredients);
+            ArrayList<double[]> rawVectors = MyParser.CookbookHTMLParser(html);
+            double[] feature=null;
+
+            //todo get feature from rawVectors
+
+            result.setModel(feature);
         } else {
             result.setStatus(false);
-            Log.d("ApiService", "ingredients status code: " + response.statusCode);
+            Log.d("ApiService", "feature status code: " + response.statusCode);
         }
         return result;
     }
