@@ -55,11 +55,4 @@ public class Food {
         this.cataRawVector = cataRawVector;
     }
 
-    public double[] getFeatureVector() {
-        return featureVector;
-    }
-
-    public void setFeatureVector(double[] featureVector) {
-        this.featureVector = featureVector;
-    }
 }
