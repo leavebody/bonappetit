@@ -12,7 +12,27 @@ public class MyParser {
      */
     public static String BingHTMLParser(String html){
         //todo
-        return null;
+    	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
+    	temp = null;
+    	start = index - 1
+    	end = start + 9
+		while(html.substring(start,end)!="<strong>" && start > 0){
+			temp = html.substring(start,end);
+			start--;
+			end--;
+		}
+
+
+        String regexe = "/\\<strong>\\w+\\<strong> - <strong>Wikipedia</strong>}/";
+        Pattern pattern = Pattern.compile(regexe);
+		Matcher matcher = pattern.matcher(html);
+		if (matcher.find()) {
+			String result = matcher.group(0);
+			length = length(result)
+    		return result.substring(8, length-36 ) //prints /{item}/
+		} else {
+    		return null;
+		}
     }
 
     /**
