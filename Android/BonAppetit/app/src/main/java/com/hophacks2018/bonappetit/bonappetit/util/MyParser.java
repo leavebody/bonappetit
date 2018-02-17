@@ -4,7 +4,12 @@ package com.hophacks2018.bonappetit.bonappetit.util;
  * @author Xiaochen Li
  */
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyParser {
     /**
@@ -15,8 +20,24 @@ public class MyParser {
      * @return a string of name or null
      */
     public static String BingHTMLParser(String html){
-        //todo
-        return null;
+        try {
+            int index = html.indexOf("</strong> - <strong>Wikipedia</strong>");
+            String temp = null;
+            int start = index - 1;
+            int end = start + 8;
+            while (!html.substring(start, end).equals("<strong>") && start > 0) {
+                temp = html.substring(start, end);
+                start--;
+                end--;
+            }
+            if (start == 0) {
+                return null;
+            } else {
+                return html.substring(end, index);
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
@@ -26,7 +47,8 @@ public class MyParser {
      *          or null is input is invalid
      */
     public static ArrayList<double[]> CookbookHTMLParser(String html){
-        //todo
+
+
         return null;
     }
 
@@ -39,7 +61,12 @@ public class MyParser {
      * @return the cookbook name, eg. Mapo_Doufu. Or null if aborted.
      */
     public static String CookbookSearchHTMLParser(String html){
-        //todo
-        return new String();
+        int index1 = html.indexOf("<a href=\"/wiki/Cookbook:");
+        if (index1 == -1) {
+            return null;
+        }
+        int index2 = html.indexOf("\"", index1+24);
+        return html.substring(index1+24, index2);
     }
+
 }

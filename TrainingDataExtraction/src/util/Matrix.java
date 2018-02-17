@@ -1,3 +1,5 @@
+package util;
+
 /******************************************************************************
  *  Compilation:  javac Matrix.java
  *  Execution:    java Matrix
