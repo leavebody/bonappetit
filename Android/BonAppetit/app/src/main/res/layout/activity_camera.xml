@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/topLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:keepScreenOn="true">
 
-    <com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview
+    <com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview
         android:id="@+id/preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.gms.samples.vision.ocrreader.ui.camera.GraphicOverlay
+        <com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay
             android:id="@+id/graphicOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </com.google.android.gms.samples.vision.ocrreader.ui.camera.CameraSourcePreview>
+    </com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview>
 
     <TextView
         android:id="@+id/text"
-        android:text="Scan your menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
         android:layout_centerInParent="true"
-        />
+        android:text="Scan your menu"
+        android:textSize="20dp" />
 
     <Button
         android:id="@+id/button_capture"
@@ -35,7 +33,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/camera"
-        />
+        android:background="@drawable/camera" />
 
 </RelativeLayout>

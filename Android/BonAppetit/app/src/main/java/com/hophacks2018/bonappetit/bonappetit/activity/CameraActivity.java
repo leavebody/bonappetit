@@ -101,7 +101,7 @@ public final class CameraActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_camera);
 
-                mPreview = (CameraSourcePreview) findViewById(R.id.preview);
+        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
        /* mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);*/
         ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
             @Override
