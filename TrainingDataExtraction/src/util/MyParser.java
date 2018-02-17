@@ -1,8 +1,16 @@
-package util;
+
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import java.nio.file.Files;
+import java.nio.charset.Charset;
+import java.lang.StringBuilder;
+import java.nio.file.Paths;
+import java.util.List;
+import java.io.IOException;
+
 
 public class MyParser {
     /**
@@ -40,7 +48,8 @@ public class MyParser {
      *          or null is input is invalid
      */
     public static ArrayList<double[]> CookbookHTMLParser(String html){
-        //todo
+        
+        
         return null;
     }
 
@@ -53,7 +62,26 @@ public class MyParser {
      * @return the cookbook name, eg. Mapo_Doufu. Or null if aborted.
      */
     public static String CookbookSearchHTMLParser(String html){
-        //todo
-        return new String();
+        int index1 = html.indexOf("<a href=\"/wiki/Cookbook:");
+        if (index1 == -1) {
+            return null;
+        }
+        int index2 = html.indexOf("\"", index1+24);
+        return html.substring(index1+24, index2);
+    }
+
+    public static void main(String[] args) throws IOException{
+        
+        final String EoL = System.getProperty("line.separator");
+        List<String> lines = Files.readAllLines(Paths.get("htmltest.html"),
+                                Charset.defaultCharset());
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(line).append(EoL);
+        }
+        final String content = sb.toString();
+        
+        System.out.print(CookbookSearchHTMLParser(content));
     }
 }
