@@ -12,7 +12,6 @@ package util;
 public class Matrix {
 
 
-
     // return n-by-n identity matrix I
     public static double[][] identity(int n) {
         double[][] a = new double[n][n];
@@ -102,6 +101,5 @@ public class Matrix {
                 y[j] += a[i][j] * x[i];
         return y;
     }
-
 
 }
