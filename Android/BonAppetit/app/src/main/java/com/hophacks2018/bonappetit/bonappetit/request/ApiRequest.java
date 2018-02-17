@@ -17,21 +17,20 @@ import com.hophacks2018.bonappetit.bonappetit.util.VolleyCallback;
  * @author Xiaochen Li
  */
 
-public class HTMLRequest extends Request {
+public class ApiRequest extends Request {
     /**
      * Constructor
      * @param c
      */
-    public HTMLRequest(Context c) {super(c);}
+    public ApiRequest(Context c) {super(c);}
 
     /**
      * get the raw html content by its url
      * @param callback
      */
-    public void geoCodingRequest(final VolleyCallback callback, String url) {
+    public void htmlRequest(final VolleyCallback callback, String url) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(contextf);
-        Log.d("ResourseRequest", url);
         NetworkResponseRequest nrRequest = new NetworkResponseRequest(com.android.volley.Request.Method.GET, url, null,
                 new Response.Listener<NetworkResponse>() {
                     @Override
