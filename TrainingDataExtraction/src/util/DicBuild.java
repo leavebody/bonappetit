@@ -1,14 +1,14 @@
 
 
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.io.*;
 
 public class DicBuild{
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 
-		Hashtable<String, Integer> ingredient = new Hashtable<String, Integer>();
-		Hashtable<String, Integer> category = new Hashtable<String, Integer>();
-		Hashtable<String, Integer> subcategory = new Hashtable<String, Integer>();
+		HashMap<String, Integer> ingredient = new HashMap<String, Integer>();
+		HashMap<String, Integer> category = new HashMap<String, Integer>();
+		HashMap<String, Integer> subcategory = new HashMap<String, Integer>();
 
 		File file = new File("Clean_Dic.csv");
 		BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -18,15 +18,16 @@ public class DicBuild{
     	int l = 0;
     	while ((text = reader.readLine()) != null) {
     		String temp[]= text.toLowerCase().split(",");
-    		if (!ingredient.contains(temp[0])) {
+            
+    		if (!ingredient.containsKey(temp[0])) {
         		ingredient.put(temp[0], i);
         		i++;
         	}
-        	if (!category.contains(temp[1])) {
+        	if (!category.containsKey(temp[1])) {
         		category.put(temp[1], j);
         		j++;
         	}
-        	if (!subcategory.contains(temp[2])) {
+        	if (!subcategory.containsKey(temp[2])) {
         		subcategory.put(temp[2], l);
         		l++;
         	}
@@ -65,25 +66,36 @@ public class DicBuild{
     			}
     		}
     	}
+
         FileOutputStream file1 = new FileOutputStream("ingredient.ser");
         ObjectOutputStream out1 = new ObjectOutputStream(file1);
         out1.writeObject(ingredient);
         out1.close();
         file1.close();
-/*
-        FileOutputStream file = new FileOutputStream(filename);
-        ObjectOutputStream out = new ObjectOutputStream(file);
-        out.writeObject(object);
-        out.close();
-        file.close();
 
-        FileOutputStream file = new FileOutputStream(filename);
-        ObjectOutputStream out = new ObjectOutputStream(file);
-        out.writeObject(object);
-        out.close();
-        file.close();
-*/
+        FileOutputStream file2 = new FileOutputStream("subcategory.ser");
+        ObjectOutputStream out2 = new ObjectOutputStream(file2);
+        out2.writeObject(subcategory);
+        out2.close();
+        file2.close();
 
+        FileOutputStream file3 = new FileOutputStream("category.ser");
+        ObjectOutputStream out3 = new ObjectOutputStream(file3);
+        out3.writeObject(category);
+        out3.close();
+        file3.close();
+
+        FileOutputStream file4 = new FileOutputStream("ingrCate.ser");
+        ObjectOutputStream out4 = new ObjectOutputStream(file4);
+        out4.writeObject(ingrCate);
+        out4.close();
+        file4.close();
+
+        FileOutputStream file5 = new FileOutputStream("ingrSub.ser");
+        ObjectOutputStream out5 = new ObjectOutputStream(file5);
+        out5.writeObject(ingrSub);
+        out5.close();
+        file5.close();
 	}
 }
 
