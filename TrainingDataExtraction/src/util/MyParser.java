@@ -13,32 +13,35 @@ public class MyParser {
      * @return a string of name or null
      */
     public static String BingHTMLParser(String html){
-        //todo
-    	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
-    	String temp = null;
-    	int start = index - 1;
-    	int end = start + 9;
-		while(html.substring(start,end)!="<strong>" && start > 0){
-			temp = html.substring(start,end);
-			start--;
-			end--;
-		}
-		if (start == 0){
-			return null;
-		}
-		else{
-			return html.substring(end+1, index);
-		}
+        try {
+            int index = html.indexOf("</strong> - <strong>Wikipedia</strong>");
+            String temp = null;
+            int start = index - 1;
+            int end = start + 8;
+            while (!html.substring(start, end).equals("<strong>") && start > 0) {
+                temp = html.substring(start, end);
+                start--;
+                end--;
+            }
+            if (start == 0) {
+                return null;
+            } else {
+                return html.substring(end, index);
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
-     * Get a list of ingredients of the dish from html string of the cookbook web page.
+     * Get vectors of raw features of the dish from html string of the cookbook web page.
      * @param html raw html code of the web page
-     * @return a list of ingredients
+     * @return Arraylist<double[] ingredientRawVector, double[] subcataRawVector, double[] cataRawVector>
+     *          or null is input is invalid
      */
-    public static ArrayList<String> CookbookHTMLParser(String html){
+    public static ArrayList<double[]> CookbookHTMLParser(String html){
         //todo
-        return new ArrayList<String>();
+        return null;
     }
 
     /**
