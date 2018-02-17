@@ -1,4 +1,4 @@
-package util;
+
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -10,6 +10,33 @@ import java.lang.StringBuilder;
 import java.nio.file.Paths;
 import java.util.List;
 import java.io.IOException;
+
+
+// Java program implementing Singleton class
+// with getInstance() method
+class Singleton
+{
+    // static variable single_instance of type Singleton
+    private static Singleton single_instance = null;
+ 
+    // variable of type String
+    public String s;
+ 
+    // private constructor restricted to this class itself
+    private Singleton()
+    {
+        s = "Hello I am a string part of Singleton class";
+    }
+ 
+    // static method to create instance of Singleton class
+    public static Singleton getInstance()
+    {
+        if (single_instance == null)
+            single_instance = new Singleton();
+ 
+        return single_instance;
+    }
+}
 
 
 public class MyParser {
@@ -72,7 +99,7 @@ public class MyParser {
      */
     public static String CookbookSearchHTMLParser(String html){
         int index1 = html.indexOf("<a href=\"/wiki/Cookbook:");
-        if (index1 == -1) {
+        if (index1 == -1 || html.substring(index1+24, index1 + 41).equals("Table_of_Contents")) {
             return null;
         }
         int index2 = html.indexOf("\"", index1+24);
