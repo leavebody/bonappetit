@@ -14,24 +14,18 @@ public class MyParser {
         //todo
     	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
     	String temp = null;
-    	int start = index - 1
-    	int end = start + 9
+    	int start = index - 1;
+    	int end = start + 9;
 		while(html.substring(start,end)!="<strong>" && start > 0){
 			temp = html.substring(start,end);
 			start--;
 			end--;
 		}
-
-
-        String regexe = "/\\<strong>\\w+\\<strong> - <strong>Wikipedia</strong>}/";
-        Pattern pattern = Pattern.compile(regexe);
-		Matcher matcher = pattern.matcher(html);
-		if (matcher.find()) {
-			String result = matcher.group(0);
-			length = length(result)
-    		return result.substring(8, length-36 ) //prints /{item}/
-		} else {
-    		return null;
+		if (start == 0){
+			return null;
+		}
+		else{
+			return html.substring(end+1, index);
 		}
     }
 
