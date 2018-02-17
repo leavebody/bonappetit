@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.nio.file.Files;
+import java.nio.charset.Charset;
+import java.lang.StringBuilder;
+import java.nio.file.Paths;
+import java.util.List;
+import java.io.IOException;
+
+
 public class MyParser {
     /**
      * Return the name from wiki in this page.
@@ -13,32 +21,36 @@ public class MyParser {
      * @return a string of name or null
      */
     public static String BingHTMLParser(String html){
-        //todo
-    	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
-    	String temp = null;
-    	int start = index - 1;
-    	int end = start + 9;
-		while(html.substring(start,end)!="<strong>" && start > 0){
-			temp = html.substring(start,end);
-			start--;
-			end--;
-		}
-		if (start == 0){
-			return null;
-		}
-		else{
-			return html.substring(end+1, index);
-		}
+        try {
+            int index = html.indexOf("</strong> - <strong>Wikipedia</strong>");
+            String temp = null;
+            int start = index - 1;
+            int end = start + 8;
+            while (!html.substring(start, end).equals("<strong>") && start > 0) {
+                temp = html.substring(start, end);
+                start--;
+                end--;
+            }
+            if (start == 0) {
+                return null;
+            } else {
+                return html.substring(end, index);
+            }
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**
-     * Get a list of ingredients of the dish from html string of the cookbook web page.
+     * Get vectors of raw features of the dish from html string of the cookbook web page.
      * @param html raw html code of the web page
-     * @return a list of ingredients
+     * @return Arraylist<double[] ingredientRawVector, double[] subcataRawVector, double[] cataRawVector>
+     *          or null is input is invalid
      */
-    public static ArrayList<String> CookbookHTMLParser(String html){
-        //todo
-        return new ArrayList<String>();
+    public static ArrayList<double[]> CookbookHTMLParser(String html){
+        
+        
+        return null;
     }
 
     /**
@@ -50,7 +62,26 @@ public class MyParser {
      * @return the cookbook name, eg. Mapo_Doufu. Or null if aborted.
      */
     public static String CookbookSearchHTMLParser(String html){
-        //todo
-        return new String();
+        int index1 = html.indexOf("<a href=\"/wiki/Cookbook:");
+        if (index1 == -1) {
+            return null;
+        }
+        int index2 = html.indexOf("\"", index1+24);
+        return html.substring(index1+24, index2);
+    }
+
+    public static void main(String[] args) throws IOException{
+        
+        final String EoL = System.getProperty("line.separator");
+        List<String> lines = Files.readAllLines(Paths.get("htmltest.html"),
+                                Charset.defaultCharset());
+
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(line).append(EoL);
+        }
+        final String content = sb.toString();
+        
+        System.out.print(CookbookSearchHTMLParser(content));
     }
 }

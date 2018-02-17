@@ -49,10 +49,14 @@ import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
+
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
 import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
+import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
+import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
+import com.hophacks2018.bonappetit.bonappetit.service.ServiceCallBack;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -97,9 +101,17 @@ public final class CameraActivity extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.activity_camera);
 
-        mPreview = (CameraSourcePreview) findViewById(R.id.preview);
+                mPreview = (CameraSourcePreview) findViewById(R.id.preview);
        /* mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);*/
-        captureButton = (Button) findViewById(R.id.button_capture);
+        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
+            @Override
+            public void getModelOnSuccess(ModelResult<String> modelResult) {
+                if (modelResult.isStatus()){
+                    Log.d("asdfgh", modelResult.getModel());
+                }
+            }
+        });
+                captureButton = (Button) findViewById(R.id.button_capture);
         rotation = getWindowManager().getDefaultDisplay().getRotation();
 
         // Set good defaults for capturing text.

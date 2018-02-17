@@ -7,9 +7,14 @@ import android.graphics.Bitmap;
  */
 
 public class Food {
-    private String name;
-    private String description;
-    private Bitmap image;
+    private String rawName; // The name recognized from the menu.
+    private String name; // The official name of this dish.
+    private String description; // Detailed description of the dish got from google knowledge graph.
+    private Bitmap image; //
+    private double[] ingredientRawVector;
+    private double[] subcataRawVector;
+    private double[] cataRawVector;
+    private double[] featureVector;
     // todo add info about the position of the item in the menu image
 
     public String getName() {
@@ -34,5 +39,45 @@ public class Food {
 
     public void setImage(Bitmap image) {
         this.image = image;
+    }
+
+    public String getRawName() {
+        return rawName;
+    }
+
+    public void setRawName(String rawName) {
+        this.rawName = rawName;
+    }
+
+    public double[] getIngredientRawVector() {
+        return ingredientRawVector;
+    }
+
+    public void setIngredientRawVector(double[] ingredientRawVector) {
+        this.ingredientRawVector = ingredientRawVector;
+    }
+
+    public double[] getSubcataRawVector() {
+        return subcataRawVector;
+    }
+
+    public void setSubcataRawVector(double[] subcataRawVector) {
+        this.subcataRawVector = subcataRawVector;
+    }
+
+    public double[] getCataRawVector() {
+        return cataRawVector;
+    }
+
+    public void setCataRawVector(double[] cataRawVector) {
+        this.cataRawVector = cataRawVector;
+    }
+
+    public double[] getFeatureVector() {
+        return featureVector;
+    }
+
+    public void setFeatureVector(double[] featureVector) {
+        this.featureVector = featureVector;
     }
 }

@@ -1,4 +1,5 @@
 import util.HTTPGetter;
+import util.MyParser;
 
 
 public class Test {
@@ -6,12 +7,13 @@ public class Test {
     public Test(String url) {
         HTTPGetter getter = new HTTPGetter(url);
         String html = getter.getHTML();
-        System.out.println(html);
+        String name = MyParser.BingHTMLParser(html);
+        System.out.println(name);
     }
 
     static public void main(String[] args) {
         String url = "https://en.wikibooks.org/wiki/Cookbook:Mapo_Doufu";
-        url = "https://www.bing.com/search?q=mapo+tofu";
+        url = "https://www.bing.com/search?q=soon+tofu";
         Test t = new Test(url);
     }
 }
