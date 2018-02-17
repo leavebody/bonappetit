@@ -1,8 +1,10 @@
-package util;
+package com.hophacks2018.bonappetit.bonappetit.util;
+
+/**
+ * @author Xiaochen Li
+ */
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MyParser {
     /**
@@ -13,48 +15,8 @@ public class MyParser {
      * @return a string of name or null
      */
     public static String BingHTMLParser(String html){
-<<<<<<< HEAD
         //todo
-    	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
-    	String temp = null;
-    	int start = index - 1;
-    	int end = start + 9;
-		while(html.substring(start,end)!="<strong>" && start > 0){
-			temp = html.substring(start,end);
-			start--;
-			end--;
-		}
-		if (start == 0){
-			return null;
-		}
-		else{
-			return html.substring(end+1, index);
-		}
-=======
-//        //todo
-//    	int index = html.indexOf("</strong> - <strong>Wikipedia</strong>}");
-//    	String temp = null;
-//    	int start = index - 1
-//    	int end = start + 9
-//		while(html.substring(start,end)!="<strong>" && start > 0){
-//			temp = html.substring(start,end);
-//			start--;
-//			end--;
-//		}
-//
-//
-//        String regexe = "/\\<strong>\\w+\\<strong> - <strong>Wikipedia</strong>}/";
-//        Pattern pattern = Pattern.compile(regexe);
-//		Matcher matcher = pattern.matcher(html);
-//		if (matcher.find()) {
-//			String result = matcher.group(0);
-//			length = length(result);
-//    		return result.substring(8, length-36 ); //prints /{item}/
-//		} else {
-//    		return null;
-//		}
         return null;
->>>>>>> b170f6a226de80db17495e1e21a9159ec747aa50
     }
 
     /**

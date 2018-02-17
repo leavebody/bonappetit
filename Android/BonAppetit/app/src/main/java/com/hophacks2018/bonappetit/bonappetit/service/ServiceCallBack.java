@@ -5,6 +5,6 @@ package com.hophacks2018.bonappetit.bonappetit.service;
  * @author Xiaochen Li
  */
 
-public interface ActivityCallBack <M> {
+public interface ServiceCallBack<M> {
     void getModelOnSuccess(ModelResult<M> modelResult);
 }
