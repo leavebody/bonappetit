@@ -13,13 +13,13 @@ public class Food {
         this.rawName = rawName;
     }
         String splited =  this.rawName.replaceAll("\\s", "+");
-        String URL = "https://www.bing.com/search?q=" + splited;
-        System.out.println(splited);
+        String URL = "https://www.bing.com/search?q=" + splited + "+wiki";
         HTTPGetter getOfficial = new HTTPGetter(URL);
         String html1 = getOfficial.getHTML();
         MyParser aa = new MyParser();
         String realname = aa.BingHTMLParser(html1);
         this.name = realname;
+        System.out.println(this.name);
         return this.name;
     public String getTurName() {
         String splited =  this.rawName.replaceAll("\\s", "+");
@@ -43,7 +43,7 @@ public class Food {
     }
 
     static public void main(String[] args) {
-        Food obj = new Food("Mapo tofu");
+        Food obj = new Food("");
         String realName = obj.getName();
         System.out.println (realName);
         String aa = obj.getTurName();
