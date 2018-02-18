@@ -3,12 +3,15 @@ package com.hophacks2018.bonappetit.bonappetit.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.SparseArray;
@@ -28,11 +31,14 @@ import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.util.Globals;
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
+import com.hophacks2018.bonappetit.bonappetit.util.HistoryDBHelper;
 import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -46,24 +52,28 @@ public class MenuActivity extends AppCompatActivity {
 
     private GestureDetector gestureDetector;
 
+    private HistoryDBHelper historyDBHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Globals globals = (Globals)getApplication();
+        Globals globals = (Globals) getApplication();
+        historyDBHelper = HistoryDBHelper.getInstance(this);
 
         buttonNext = (Button) findViewById(R.id.nextButton);
         buttonNext.setOnClickListener(onClickListener);
         buttonPre = (Button) findViewById(R.id.buttonPre);
         buttonPre.setOnClickListener(onClickListenerPre);
 
-        imagePath  = globals.getImagePath();
+        imagePath = globals.getImagePath();
 
         imageView = (ImageView) findViewById(R.id.Imgae);
         /*relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         relativeLayout.setBackgroundColor(getResources().getColor(android.R.color.transparent));
-        */mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
+        */
+        mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
 
         gestureDetector = new GestureDetector(this, new CaptureGestureListener());
 
@@ -72,10 +82,9 @@ public class MenuActivity extends AppCompatActivity {
         Picasso.with(this).load(f).into(imageView);
 
 
-        sparseArray =  (SparseArray<TextBlock>) globals.getTextBlockSparseArray();
+        sparseArray = (SparseArray<TextBlock>) globals.getTextBlockSparseArray();
 
-        if (sparseArray == null)
-        {
+        if (sparseArray == null) {
             Log.d("MenuActivity", "sparse null");
         }
 
@@ -92,8 +101,8 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
     }
+
     /**
-     *
      * @param rawX - the raw position of the tap
      * @param rawY - the raw position of the tap.
      * @return true if the tap was on a TextBlock
@@ -104,63 +113,83 @@ public class MenuActivity extends AppCompatActivity {
         if (graphic != null) {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
-                Globals globals = (Globals)getApplication();
-                ArrayList<Food> foodArrayList =  (ArrayList<Food>) globals.getScanResult().getAllFoods();
+                Globals globals = (Globals) getApplication();
+                ArrayList<Food> foodArrayList = (ArrayList<Food>) globals.getScanResult().getAllFoods();
 
                 Food myFood = null;
-                for (Food food : foodArrayList){
-                    if (food.getRawName().equals(text.getValue())){
+                for (Food food : foodArrayList) {
+                    if (food.getRawName().equals(text.getValue())) {
                         myFood = food;
                     }
                 }
                 showDialog(myFood);
                 Log.d("tap", "text data is being spoken! " + text.getValue());
-            }
-            else {
+            } else {
                 Log.d("tap", "text data is null");
             }
-        }
-        else {
-            Log.d("tap","no text detected");
+        } else {
+            Log.d("tap", "no text detected");
         }
         return text != null;
     }
 
-    private void showDialog(Food food) {
+    private void showDialog(final Food food) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (LayoutInflater) this.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
-        View dialogView = inflater.inflate(R.layout.layout_food_dialog,null);
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.layout_food_dialog, null);
         // Set the custom layout as alert dialog view
         builder.setView(dialogView);
 
         // Get the custom alert dialog view widgets reference
-        //Button btnCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+        final Button buttonOrder = (Button) dialogView.findViewById(R.id.buttonOrder);
         TextView textName = (TextView) dialogView.findViewById(R.id.foodName);
         TextView textDetail = (TextView) dialogView.findViewById(R.id.foodDetail);
         ImageView imageView = (ImageView) dialogView.findViewById(R.id.foodImage);
 
         textDetail.setText(food.getDescription());
         textName.setText(food.getName());
-        //todo
-               /* Bitmap bitmap = StringToBitMap(food.getImage());
-                BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bitmap);
-                imageView.setBackgroundDrawable(ob);*/
 
-        imageView.setBackgroundResource(R.drawable.camera);
+        if (food.getImage() != null) {
+            Bitmap bitmap = StringToBitMap(food.getImage());
+            BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
+            imageView.setBackgroundDrawable(ob);
+        } else
+            imageView.setBackgroundResource(R.drawable.camera);
 
         // Create the alert dialog
         final AlertDialog dialog = builder.create();
 
         // Set negative/no button click listener
-               /* btnCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Dismiss the alert dialog
-                        dialog.cancel();
-                    }
-                });*/
+        buttonOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("order", "isClicked");
+                if (food.isOrdered()){
+                    buttonOrder.setBackgroundResource(R.drawable.yes_gray);
+                    //todo detele from database Name???? RawName??
+                    historyDBHelper.delete(food.getName());
+                }
+                else {
+                    buttonOrder.setBackgroundResource(R.drawable.yes_green);
+                    //Todo insert into database
+                    Date currentTime = Calendar.getInstance().getTime();
+                    historyDBHelper.insert(food.getName(), food.getImage(), currentTime, food.getFeatureVector());
+                }
+            }
+        });
 
         dialog.show();
+    }
+
+    private Bitmap StringToBitMap(String image) {
+        try {
+            byte[] encodeByte = Base64.decode(image, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
     }
 
     private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
