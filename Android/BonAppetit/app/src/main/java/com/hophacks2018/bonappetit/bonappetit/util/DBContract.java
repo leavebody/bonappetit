@@ -30,9 +30,8 @@ public final class DBContract {
         public static final String TABLE_NAME = "history";
         public static final String COLUMN_DISH_NAME = "dish";
         public static final String COLUMN_IMAGE_PATH = "path";
-        public static final String COLUMN_RATE = "rate";
         public static final String COLUMN_TIME = "time";
+        public static final String COLUMN_FEATURE = "feature";
 
     }
-
 }

@@ -50,9 +50,13 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
+import com.hophacks2018.bonappetit.bonappetit.models.ReviewObj;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
+import com.hophacks2018.bonappetit.bonappetit.util.FeatureDBHelper;
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
+import com.hophacks2018.bonappetit.bonappetit.util.HistoryDBHelper;
 import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
@@ -62,6 +66,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 
@@ -103,24 +108,9 @@ public final class CameraActivity extends AppCompatActivity {
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
        /* mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);*/
-        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
-            @Override
-            public void getModelOnSuccess(ModelResult<String> modelResult) {
-                if (modelResult.isStatus()){
-                    Log.d("asdfgh", modelResult.getModel());
-                    String name = modelResult.getModel();
-                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
-                        @Override
-                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
-                            if (modelResult.isStatus()){
-                                Log.d("asdfgh", modelResult.getModel().toString());
-                            }
-                        }
-                    });
-                }
-            }
-        });
-                captureButton = (Button) findViewById(R.id.button_capture);
+
+
+        captureButton = (Button) findViewById(R.id.button_capture);
         rotation = getWindowManager().getDefaultDisplay().getRotation();
 
         // Set good defaults for capturing text.
