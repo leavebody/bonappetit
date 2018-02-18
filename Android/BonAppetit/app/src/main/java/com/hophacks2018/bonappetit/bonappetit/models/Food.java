@@ -7,6 +7,8 @@ import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
 import com.hophacks2018.bonappetit.bonappetit.service.ServiceCallBack;
 
+import java.util.ArrayList;
+
 /**
  * @author Xiaochen Li
  */
@@ -22,6 +24,7 @@ public class Food {
     public boolean isValid = true;
     private double rate;
     private boolean isOrdered = false;
+    private ArrayList<double[]> features;
 
     public Food(String rawName, ScanResult father, Context c) {
         this.rawName = rawName;
@@ -145,5 +148,9 @@ public class Food {
 
     public void setOrdered(boolean ordered) {
         isOrdered = ordered;
+    }
+
+    public ArrayList<double[]> getFeatures() {
+        return features;
     }
 }

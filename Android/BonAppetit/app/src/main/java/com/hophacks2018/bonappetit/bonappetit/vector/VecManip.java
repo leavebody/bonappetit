@@ -1,8 +1,10 @@
-import util.Matrix;
+package com.hophacks2018.bonappetit.bonappetit.vector;
 
-import java.io.*;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 // PUT IN SINGLETON CLASS. EXPENSIVE.
 public class VecManip {
@@ -107,15 +109,15 @@ public class VecManip {
             System.out.println("File Read Error");
         }
 
-//        for (int i = 0; i < mat4.length; i++){
-//            double[] row = mat4[i];
-//            for (int j = 0; j < row.length ; j++ ){
-//                System.out.print(row[j]);
-//                System.out.print(" ");
-//            }
-//            System.out.print("\n");
-//            System.out.println(row.length);
-//        }
+        for (int i = 0; i < mat4.length; i++){
+            double[] row = mat4[i];
+            for (int j = 0; j < row.length ; j++ ){
+                System.out.print(row[j]);
+                System.out.print(" ");
+            }
+            System.out.print("\n");
+            System.out.println(row.length);
+        }
 
     }
 

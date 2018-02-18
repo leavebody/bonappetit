@@ -1,8 +1,15 @@
+package com.hophacks2018.bonappetit.bonappetit.vector;
 
-import util.HTTPGetter;
-import java.io.*;
-import util.MyParser;
+import com.hophacks2018.bonappetit.bonappetit.util.MyParser;
+import com.hophacks2018.bonappetit.bonappetit.vector.util.HTTPGetter;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.ArrayList;
+
 
 
 public class Food {
@@ -137,29 +144,30 @@ public class Food {
     static public void main(String[] args) {
 
 //        BufferedReader reader = null;
-////
-////        ArrayList<String> names = new ArrayList<String>();
-////        try {
-////            File file = new File("data.txt");
-////            reader = new BufferedReader(new FileReader(file));
-////
-////            String line;
-////            while ((line = reader.readLine()) != null) {
-////                names.add(line);
-////            }
-////
-////        } catch (Exception e) {
-////            e.printStackTrace();
-////        } finally {
-////            try {
-////                reader.close();
-////            } catch (Exception e) {
-////                e.printStackTrace();
-////            }
-////        }
+//
+//        ArrayList<String> names = new ArrayList<String>();
+//        try {
+//            File file = new File("data.txt");
+//            reader = new BufferedReader(new FileReader(file));
+//
+//            String line;
+//            while ((line = reader.readLine()) != null) {
+//                names.add(line);
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                reader.close();
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+
         ArrayList<String> names = new ArrayList<String>();
         names.add("Lamingtons");
-        double[] resu = null;
+
         for (String temp : names) {
             Food obj = new Food(temp);
             obj.getName();
@@ -173,30 +181,8 @@ public class Food {
                 a.printStackTrace();
             }
             obj.WriteIntoFile(result, obj.splitName);
-            VecManip aa  = VecManip.getInstance();
-            resu = aa.compute(result);
-
-            for(int i = 0; i < 15; i++){
-                System.out.print(resu[i]);
-                System.out.print(" ");
-            }
-
-            Preference kk = new Preference();
-
-            for(int i = 0; i < 15; i++) {
-                System.out.print(kk.vec[i]);
-                System.out.print(" ");
-            }
-
-            kk.updateVec(obj, 0.5);
-
-            for(int i = 0; i < 15; i++) {
-                System.out.print(kk.vec[i]);
-                System.out.print(" ");
-            }
-
+            System.out.println(result);
         }
-
     }
 
 }
