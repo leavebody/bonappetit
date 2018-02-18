@@ -17,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.activity.ResultActivity;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
@@ -147,6 +152,33 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
 //        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
 //        Bitmap bm = getBitmapFromURL(food.getImage());
 //        holder.photo.setBackgroundDrawable(ob);
+        if (food.getImage() != null) {
+            ImageView mImageView;
+            String url = food.getImage();
+            Log.d("imageurl", url);
+
+// Retrieves an image specified by the URL, displays it in the UI.
+            ImageRequest request = new ImageRequest(url,
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            holder.photo.setImageBitmap(bitmap);
+                        }
+                    }, 0, 0, null,
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            holder.photo.setImageResource(R.drawable.camera);
+                        }
+                    });
+            RequestQueue queue = Volley.newRequestQueue(this.getContext());
+            queue.add(request);
+
+        } else {
+            holder.photo.setBackgroundResource(R.drawable.camera);
+        }
+
+
         holder.textView.setText(food.getRawName());
 
     }
