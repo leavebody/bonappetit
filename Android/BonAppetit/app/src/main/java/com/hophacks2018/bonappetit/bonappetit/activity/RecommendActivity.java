@@ -79,5 +79,4 @@ public class RecommendActivity extends AppCompatActivity {
         foodArrayList = result;
     }
 
-
 }

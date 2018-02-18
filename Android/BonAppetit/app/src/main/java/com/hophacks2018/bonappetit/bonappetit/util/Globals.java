@@ -9,7 +9,11 @@ import android.service.autofill.SaveCallback;
 import android.util.SparseArray;
 
 import com.google.android.gms.vision.text.TextBlock;
+import com.hophacks2018.bonappetit.bonappetit.R;
+import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.models.ScanResult;
+
+import java.util.ArrayList;
 
 /**
  * Created by yujiaxiao on 2/9/18.
@@ -21,6 +25,11 @@ public class Globals extends Application {
     ScanResult scanResult;
 
     public ScanResult rateResult;
+
+    public ArrayList<Food> quesList = new ArrayList<Food>();
+
+    private Food ques1 = new Food("Kong pao chicken", " name", "descrip", String.valueOf(R.drawable.back));
+
 
     String menuPath;
 
