@@ -1,10 +1,8 @@
 package com.hophacks2018.bonappetit.bonappetit.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,8 +12,11 @@ import android.widget.Button;
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter;
+import com.hophacks2018.bonappetit.bonappetit.vector.Preference;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static android.widget.LinearLayout.VERTICAL;
 
@@ -62,4 +63,21 @@ public class RecommendActivity extends AppCompatActivity {
             System.gc();
         }
     };
+
+    private void Sort () {
+        Preference kkk = new Preference();
+        double[] store = new double[foodArrayList.size()];
+        TreeMap<Double, Food> sorted = new TreeMap<>();
+        for (Food fd : foodArrayList) {
+            double storeobj = kkk.computeDot(fd.getFeatureVector());
+            sorted.put(storeobj, fd);
+        }
+        ArrayList<Food> result = new ArrayList<>();
+        for (Map.Entry<Double, Food> entry : sorted.entrySet()) {
+            result.add(entry.getValue());
+        }
+        foodArrayList = result;
+    }
+
+
 }

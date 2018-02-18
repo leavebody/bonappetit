@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 
-public class Food {
+public class FoodCompute {
     private String rawName; // The name recognized from the menu.
     private String name; // The official name of this dish.
     private String cookname;
@@ -22,7 +22,7 @@ public class Food {
     private double[] subcataRawVector;
     private double[] cataRawVector;
 
-    public Food (String rawName) {
+    public FoodCompute(String rawName) {
         this.rawName = rawName;
     }
 
@@ -169,7 +169,7 @@ public class Food {
         names.add("Lamingtons");
 
         for (String temp : names) {
-            Food obj = new Food(temp);
+            FoodCompute obj = new FoodCompute(temp);
             obj.getName();
             obj.getTurName();
             String outt = obj.setDescription();
