@@ -167,13 +167,13 @@ public class MenuActivity extends AppCompatActivity {
                 if (food.isOrdered()){
                     buttonOrder.setBackgroundResource(R.drawable.yes_gray);
                     //todo detele from database Name???? RawName??
-                    historyDBHelper.delete(food.getName());
+                    historyDBHelper.delete(food.getRawName());
                 }
                 else {
                     buttonOrder.setBackgroundResource(R.drawable.yes_green);
                     //Todo insert into database
                     Date currentTime = Calendar.getInstance().getTime();
-                    historyDBHelper.insert(food.getName(), food.getImage(), currentTime, food.getFeatureVector());
+                    historyDBHelper.insert(food.getRawName(), food.getImage(), currentTime, food.getFeatureVector());
                 }
             }
         });

@@ -16,6 +16,7 @@ import com.hophacks2018.bonappetit.bonappetit.models.ReviewObj;
 import com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter;
 import com.hophacks2018.bonappetit.bonappetit.util.HistoryDBHelper;
 import com.hophacks2018.bonappetit.bonappetit.util.ReviewAdapter;
+import com.hophacks2018.bonappetit.bonappetit.vector.Preference;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -53,11 +54,11 @@ public class ReviewActivity extends AppCompatActivity {
 
         buttonPre.setOnClickListener(onClickListener);
 
-        /*reviewList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
+        reviewList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
         reviewList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
         reviewList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
         reviewList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
-*/
+
         //set Adapter
         reviewAdapter = new ReviewAdapter(this, reviewList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(),  VERTICAL, false);
@@ -70,6 +71,16 @@ public class ReviewActivity extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         public void onClick(View v) {
+            //delete from database, training
+            historyDBHelper = HistoryDBHelper.getInstance(getApplicationContext());
+            for (Food food : reviewList){
+                if (food.getRate() != 0) {
+                    Preference preference = new Preference(food);
+                    preference.updateVec(food, food.getRate()/5.0 * 2 - 1);
+                    historyDBHelper.delete(food.getRawName());
+                }
+            }
+
             Intent nextActivity = new Intent(ReviewActivity.this, CameraActivity.class);
             startActivity(nextActivity);
             finish();

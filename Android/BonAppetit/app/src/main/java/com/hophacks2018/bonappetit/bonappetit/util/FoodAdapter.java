@@ -95,13 +95,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                         if (food.isOrdered()){
                             buttonOrder.setBackgroundResource(R.drawable.yes_gray);
                             //todo detele from database Name???? RawName??
-                            historyDBHelper.delete(food.getName());
+                            historyDBHelper.delete(food.getRawName());
                         }
                         else {
                             buttonOrder.setBackgroundResource(R.drawable.yes_green);
                             //Todo insert into database
                             Date currentTime = Calendar.getInstance().getTime();
-                            historyDBHelper.insert(food.getName(), food.getImage(), currentTime, food.getFeatureVector());
+                            historyDBHelper.insert(food.getRawName(), food.getImage(), currentTime, food.getFeatureVector());
                         }
                     }
                 });
@@ -139,7 +139,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         Food food = mFood.get(position);
 
         // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), food.getImage());
+        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
         holder.photo.setBackgroundDrawable(ob);
         holder.textView.setText(food.getRawName());
 
