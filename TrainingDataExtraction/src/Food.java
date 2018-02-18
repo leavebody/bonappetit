@@ -99,6 +99,20 @@ public class Food {
         this.cataRawVector = cataRawVector;
     }
 
+    public ArrayList<double[]> getFeatures() {
+        this.getName();
+        this.getTurName();
+        String outt = this.setDescription();
+        MyParser res = new MyParser();
+        ArrayList<double[]> result = null;
+        try {
+            result = res.CookbookHTMLParser(outt);
+        } catch (Exception a) {
+            a.printStackTrace();
+        }
+        return result;
+    }
+
     public void WriteIntoFile(ArrayList<double[]> result, String foodName){
         String target = "./data/filename-"+foodName+".txt";
         Writer writer = null;
