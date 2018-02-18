@@ -72,10 +72,10 @@ public class ReviewActivity extends AppCompatActivity {
 
         public void onClick(View v) {
             //delete from database, training
+            Preference preference = new Preference();
             historyDBHelper = HistoryDBHelper.getInstance(getApplicationContext());
             for (Food food : reviewList){
                 if (food.getRate() != 0) {
-                    Preference preference = new Preference(food);
                     preference.updateVec(food, food.getRate()/5.0 * 2 - 1);
                     historyDBHelper.delete(food.getRawName());
                 }

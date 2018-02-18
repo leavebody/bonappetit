@@ -4,32 +4,31 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:background="@color/colorPrimaryDark"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_height="30dp"
-        android:layout_width="match_parent"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:text="Pleas rate the following dish"
         android:textColor="@color/white"
-        android:text="Pleas rate the following dish"/>
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
-    <include
-        android:id="@+id/cardView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        layout="@layout/layout_review_adapter" />
+    <android.support.v7.widget.RecyclerViewe
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"></android.support.v7.widget.RecyclerViewe>
 
     <Button
         android:id="@+id/nextButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/forward"/>
+        android:layout_marginRight="10dp"
+        android:background="@drawable/forward" />
 
 </RelativeLayout>
