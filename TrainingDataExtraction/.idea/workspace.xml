@@ -82,8 +82,8 @@
       <file leaf-file-name="VecManip.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/VecManip.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="137" column="26" lean-forward="true" selection-start-line="137" selection-start-column="26" selection-end-line="137" selection-end-column="26" />
+            <state relative-caret-position="255">
+              <caret line="143" column="8" lean-forward="false" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3624#3625#0" expanded="true" />
@@ -121,9 +121,9 @@
         <option value="$PROJECT_DIR$/src/util/Singleton.java" />
         <option value="$PROJECT_DIR$/src/util/HTTPGetter.java" />
         <option value="$PROJECT_DIR$/src/util/Preference.java" />
-        <option value="$PROJECT_DIR$/src/VecManip.java" />
         <option value="$PROJECT_DIR$/src/Preference.java" />
         <option value="$PROJECT_DIR$/src/Food.java" />
+        <option value="$PROJECT_DIR$/src/VecManip.java" />
       </list>
     </option>
   </component>
@@ -617,8 +617,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/VecManip.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="137" column="26" lean-forward="true" selection-start-line="137" selection-start-column="26" selection-end-line="137" selection-end-column="26" />
+        <state relative-caret-position="255">
+          <caret line="143" column="8" lean-forward="false" selection-start-line="143" selection-start-column="8" selection-end-line="143" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3624#3625#0" expanded="true" />
