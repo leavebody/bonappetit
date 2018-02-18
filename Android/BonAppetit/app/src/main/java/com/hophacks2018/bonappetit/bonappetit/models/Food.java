@@ -17,6 +17,14 @@ public class Food {
     private double[] featureVector;
     // todo add info about the position of the item in the menu image
 
+
+    public Food(String rawName, String name, String description, Bitmap image) {
+        this.rawName = rawName;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+    }
+
     public String getName() {
         return name;
     }

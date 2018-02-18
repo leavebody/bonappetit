@@ -50,6 +50,7 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.Globals;
@@ -228,7 +229,7 @@ public final class CameraActivity extends AppCompatActivity {
 
 
                                     //String intentString = BitMapToString(rotatedBitmap);
-                                    Intent intent = new Intent(CameraActivity.this, MenuActivity.class);
+                                    Intent intent = new Intent(CameraActivity.this, ResultActivity.class);
                                     intent.putExtra("image", imageFile.toString());
                                     startActivity(intent);
                                     finish();

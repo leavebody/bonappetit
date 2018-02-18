@@ -1,5 +1,6 @@
 package com.hophacks2018.bonappetit.bonappetit.activity;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -27,6 +28,11 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        foodArrayList = new ArrayList<>();
+        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
+        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
+        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
+        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
 
         //set Adapter
         foodAdapter = new FoodAdapter(this, foodArrayList);
