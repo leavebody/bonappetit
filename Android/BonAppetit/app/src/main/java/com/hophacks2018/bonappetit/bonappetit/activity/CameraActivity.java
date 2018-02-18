@@ -50,6 +50,7 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
@@ -102,25 +103,28 @@ public final class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-       /* mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);*/
-        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
-            @Override
-            public void getModelOnSuccess(ModelResult<String> modelResult) {
-                if (modelResult.isStatus()){
-                    Log.d("asdfgh", modelResult.getModel());
-                    String name = modelResult.getModel();
-                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
-                        @Override
-                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
-                            if (modelResult.isStatus()){
-                                Log.d("asdfgh", modelResult.getModel().toString());
-                            }
-                        }
-                    });
-                }
-            }
-        });
-                captureButton = (Button) findViewById(R.id.button_capture);
+
+        mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
+
+//        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
+//            @Override
+//            public void getModelOnSuccess(ModelResult<String> modelResult) {
+//                if (modelResult.isStatus()){
+//                    Log.d("asdfgh", modelResult.getModel());
+//                    String name = modelResult.getModel();
+//                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
+//                        @Override
+//                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
+//                            if (modelResult.isStatus()){
+//                                Log.d("asdfgh", modelResult.getModel().toString());
+//                            }
+//                        }
+//                    });
+//                }
+//            }
+//        });
+
+        captureButton = (Button) findViewById(R.id.button_capture);
         rotation = getWindowManager().getDefaultDisplay().getRotation();
 
         // Set good defaults for capturing text.
@@ -220,6 +224,8 @@ public final class CameraActivity extends AppCompatActivity {
                                         TextBlock item = textBlockSparseArray.valueAt(i);
                                         if (item != null && item.getValue() != null) {
                                             Log.d("asdfghj", "Text detected! " + item.getValue());
+                                            OcrGraphic graphic = new OcrGraphic(mGraphicOverlay, item);
+                                            mGraphicOverlay.add(graphic);
                                         }
                                     }
                                     Log.d("asdfghj", "Text detected finish! ");
