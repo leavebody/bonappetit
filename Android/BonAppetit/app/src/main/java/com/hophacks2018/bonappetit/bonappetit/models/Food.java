@@ -86,6 +86,12 @@ public class Food {
         this.image = image;
     }
 
+    public Food(String rawName, String image, double[] featureVector) {
+        this.rawName = rawName;
+        this.image = image;
+        this.featureVector = featureVector;
+    }
+
     public String getName() {
         return name;
     }

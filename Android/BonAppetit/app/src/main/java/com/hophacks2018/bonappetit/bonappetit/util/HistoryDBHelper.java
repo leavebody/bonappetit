@@ -69,7 +69,7 @@ public class HistoryDBHelper extends SQLiteOpenHelper {
             long newRowId = db.insert(DBContract.HistoryDB.TABLE_NAME, null, values);
             return newRowId != -1;
         } catch (Exception e) {
-            throw e;
+            return false;
         }
     }
 
@@ -92,8 +92,7 @@ public class HistoryDBHelper extends SQLiteOpenHelper {
                 null                                 // The sort order
         );
         ReviewObj[] returnedlist= new ReviewObj[10];
-        for (int i = 0; i < 10; i++) {
-            cursor.moveToNext();
+        for (int i = 0; i < 10 && cursor.moveToNext(); i++) {
             String datetime = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.HistoryDB.COLUMN_TIME));
             String line = "";
             line = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.HistoryDB.COLUMN_FEATURE));

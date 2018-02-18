@@ -225,8 +225,9 @@ public final class CameraActivity extends AppCompatActivity {
 
                                     for (int i = 0; i < globals.getTextBlockSparseArray().size(); ++i) {
                                         TextBlock item = globals.getTextBlockSparseArray().valueAt(i);
-                                        if (item != null && item.getValue() != null) {
+                                        if (item != null && item.getValue() != null && !item.getValue().contains("\n")) {
                                             Food food = new Food(item.getValue(), scanResult, CameraActivity.this);
+                                            Log.d("rawtext:", item.getValue());
                                             scanResult.addFoodItem(food);
                                         }
                                     }

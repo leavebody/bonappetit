@@ -22,6 +22,8 @@ import com.hophacks2018.bonappetit.bonappetit.activity.ResultActivity;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by yujiaxiao on 2/17/18.
@@ -34,6 +36,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         public ImageView photo;
         public TextView textView;
         private Context context;
+        private HistoryDBHelper historyDBHelper;
 
         public MyViewHolder(View view, Context context) {
             super(view);
@@ -87,14 +90,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 buttonOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        historyDBHelper = HistoryDBHelper.getInstance(getContext());
                         Log.d("order", "isClicked");
                         if (food.isOrdered()){
                             buttonOrder.setBackgroundResource(R.drawable.yes_gray);
-                            //todo detele from database
+                            //todo detele from database Name???? RawName??
+                            historyDBHelper.delete(food.getRawName());
                         }
                         else {
                             buttonOrder.setBackgroundResource(R.drawable.yes_green);
                             //Todo insert into database
+                            Date currentTime = Calendar.getInstance().getTime();
+                            historyDBHelper.insert(food.getRawName(), food.getImage(), currentTime, food.getFeatureVector());
                         }
                     }
                 });
@@ -132,7 +139,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         Food food = mFood.get(position);
 
         // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), food.getImage());
+        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
         holder.photo.setBackgroundDrawable(ob);
         holder.textView.setText(food.getRawName());
 

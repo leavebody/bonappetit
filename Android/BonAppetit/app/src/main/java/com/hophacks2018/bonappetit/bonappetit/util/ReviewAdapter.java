@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     public TextView textView;
     public RatingBar ratingBar;
     private Context context;
+    private HistoryDBHelper historyDBHelper;
 
     public MyViewHolder(View view, Context context) {
         super(view);
@@ -49,7 +51,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             final Food food = mFood.get(position);
 
             food.setRate(ratingBar.getRating());
-            //todo delete from database, training
+            Log.d("rate", String.valueOf(ratingBar.getRating()));
         }
     }
 }
