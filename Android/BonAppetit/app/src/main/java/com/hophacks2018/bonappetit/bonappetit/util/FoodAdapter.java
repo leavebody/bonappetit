@@ -2,10 +2,12 @@ package com.hophacks2018.bonappetit.bonappetit.util;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,22 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 final Food food = mFood.get(position);
                 Toast.makeText(getContext(), food.getName(), Toast.LENGTH_SHORT).show();
+
+                /*final AlertDialog alertDialog = builder.create();
+                LayoutInflater inflater = alertDialog.getLayoutInflater();
+                View dialoglayout = inflater.inflate(R.layout.layout_food_dialog, null);
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setView(dialoglayout);
+                builder.show();*/
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                final AlertDialog alertDialog = builder.create();
+                LayoutInflater inflater = alertDialog.getLayoutInflater();
+                View dialoglayout = inflater.inflate(R.layout.layout_food_dialog, null);
+
+                builder.setView(dialoglayout);
+                alertDialog.show();
             }
         }
     }
