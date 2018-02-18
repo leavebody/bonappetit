@@ -10,7 +10,7 @@ public class Preference {
     private double[] vec;
     private double n;
 
-    public Preference(Food fd){
+    public Preference(){
         this.initVec();
     }
 
@@ -37,6 +37,10 @@ public class Preference {
         }
         this.vec = result;
         return result;
+    }
+
+    public double computeDot(double[] inn){
+        return Matrix.dot(inn,this.vec);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.hophacks2018.bonappetit.bonappetit.models;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
@@ -87,8 +86,8 @@ public class Food {
         this.image = image;
     }
 
-    public Food(String name, String image, double[] featureVector) {
-        this.name = name;
+    public Food(String rawName, String image, double[] featureVector) {
+        this.rawName = rawName;
         this.image = image;
         this.featureVector = featureVector;
     }

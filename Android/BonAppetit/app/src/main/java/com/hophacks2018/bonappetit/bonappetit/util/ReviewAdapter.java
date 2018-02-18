@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             final Food food = mFood.get(position);
 
             food.setRate(ratingBar.getRating());
-            //todo delete from database, training
-            historyDBHelper = HistoryDBHelper.getInstance(getContext());
-            historyDBHelper.delete(food.getName());
+            Log.d("rate", String.valueOf(ratingBar.getRating()));
         }
     }
 }
@@ -85,8 +84,13 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         Food food = mFood.get(position);
 
         // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), food.getImage());
-        holder.photo.setBackgroundDrawable(ob);
+        if (isNumeric(food.getImage())){
+            holder.photo.setBackgroundResource(Integer.parseInt(food.getImage()));
+        }
+        else {
+            BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
+            holder.photo.setBackgroundDrawable(ob);
+        }
         holder.textView.setText(food.getRawName());
 
     }
@@ -108,5 +112,18 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             return null;
         }
 
+    }
+
+    public boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 }

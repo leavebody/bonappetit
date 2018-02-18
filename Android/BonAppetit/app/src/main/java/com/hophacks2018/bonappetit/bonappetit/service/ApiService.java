@@ -14,6 +14,7 @@ import com.hophacks2018.bonappetit.bonappetit.request.ApiRequest;
 import com.hophacks2018.bonappetit.bonappetit.util.MyParser;
 import com.hophacks2018.bonappetit.bonappetit.util.NetworkResponseRequest;
 import com.hophacks2018.bonappetit.bonappetit.util.VolleyCallback;
+import com.hophacks2018.bonappetit.bonappetit.vector.VecManip;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,8 +96,9 @@ public class ApiService {
 
             ArrayList<double[]> rawVectors = MyParser.CookbookHTMLParser(html);
             double[] feature=null;
-
+            VecManip kk = VecManip.getInstance();
             //todo get feature from rawVectors
+            feature = kk.compute(rawVectors);
 
             //todo check feature is valid
             result.setStatus(true);
