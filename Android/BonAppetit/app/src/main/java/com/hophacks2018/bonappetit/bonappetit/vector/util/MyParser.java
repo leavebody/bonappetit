@@ -1,5 +1,9 @@
 package com.hophacks2018.bonappetit.bonappetit.vector.util;
 
+import android.content.Context;
+
+import com.hophacks2018.bonappetit.bonappetit.util.AppHolder;
+import com.hophacks2018.bonappetit.bonappetit.util.Globals;
 import com.hophacks2018.bonappetit.bonappetit.vector.Matrix;
 
 import java.io.IOException;
@@ -48,7 +52,7 @@ public class MyParser {
      *          or null is input is invalid
      */
     public static ArrayList<double[]> CookbookHTMLParser(String html) throws IOException, ClassNotFoundException {
-        Singleton sin = Singleton.getInstance();
+        Singleton sin = Singleton.getInstance(AppHolder.getContext());
         double[] titleRawVector = new double[sin.ingredientN];
         double[] ingredientRawVector = new double[sin.ingredientN];
         double[] subcataRawVector;
@@ -103,7 +107,7 @@ public class MyParser {
         int index2 = html.indexOf("\"", index1+24);
         return html.substring(index1+24, index2);
     }
-
+/*
     public static void main(String[] args) throws IOException, ClassNotFoundException{
 
 
@@ -129,6 +133,6 @@ public class MyParser {
         final String content = sb.toString();
         
         System.out.print(CookbookSearchHTMLParser(content));
-        */
-    }
+
+    }*/
 }

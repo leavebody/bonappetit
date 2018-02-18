@@ -1,7 +1,11 @@
 package com.hophacks2018.bonappetit.bonappetit.vector.util;
 
+import android.content.Context;
+
 import java.util.HashMap;
 import java.io.*;
+
+import static android.content.Context.*;
 
 public class DicBuild{
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -67,35 +71,6 @@ public class DicBuild{
     		}
     	}
 
-        FileOutputStream file1 = new FileOutputStream("ingredient.ser");
-        ObjectOutputStream out1 = new ObjectOutputStream(file1);
-        out1.writeObject(ingredient);
-        out1.close();
-        file1.close();
-
-        FileOutputStream file2 = new FileOutputStream("subcategory.ser");
-        ObjectOutputStream out2 = new ObjectOutputStream(file2);
-        out2.writeObject(subcategory);
-        out2.close();
-        file2.close();
-
-        FileOutputStream file3 = new FileOutputStream("category.ser");
-        ObjectOutputStream out3 = new ObjectOutputStream(file3);
-        out3.writeObject(category);
-        out3.close();
-        file3.close();
-
-        FileOutputStream file4 = new FileOutputStream("ingrCate.ser");
-        ObjectOutputStream out4 = new ObjectOutputStream(file4);
-        out4.writeObject(ingrCate);
-        out4.close();
-        file4.close();
-
-        FileOutputStream file5 = new FileOutputStream("ingrSub.ser");
-        ObjectOutputStream out5 = new ObjectOutputStream(file5);
-        out5.writeObject(ingrSub);
-        out5.close();
-        file5.close();
 	}
 }
 

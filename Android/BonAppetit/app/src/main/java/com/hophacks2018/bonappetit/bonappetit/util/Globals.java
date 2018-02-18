@@ -5,6 +5,7 @@ package com.hophacks2018.bonappetit.bonappetit.util;
  */
 
 import android.app.Application;
+import android.content.Context;
 import android.service.autofill.SaveCallback;
 import android.util.SparseArray;
 
@@ -12,7 +13,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.models.ScanResult;
+import com.hophacks2018.bonappetit.bonappetit.vector.util.Singleton;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -25,6 +28,9 @@ public class Globals extends Application {
 
     ScanResult scanResult;
 
+    Context context = getApplicationContext();
+    Singleton sin = Singleton.getInstance(context);
+
     public ScanResult rateResult;
 
     private Food ques1 = new Food("Kong pao chicken", " name", "descrip", String.valueOf(R.drawable.kongpao_chicken));
@@ -34,6 +40,9 @@ public class Globals extends Application {
     public ArrayList<Food> quesList = new ArrayList<Food>(Arrays.asList(ques1, ques2, ques3));
 
     String menuPath;
+
+    public Globals() throws IOException, ClassNotFoundException {
+    }
 
     public SparseArray<TextBlock> getTextBlockSparseArray() {
         return textBlockSparseArray;
