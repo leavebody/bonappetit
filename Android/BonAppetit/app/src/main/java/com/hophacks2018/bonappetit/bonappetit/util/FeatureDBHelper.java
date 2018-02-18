@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * @author Xiaochen Li
@@ -38,132 +39,67 @@ public class FeatureDBHelper extends SQLiteOpenHelper {
 
 
     public boolean insert(double[] featuresDouble) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String featuresString;
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME,
-                DBContract.LoginDB.COLUMN_ID_NAME
-        };
-        // Filter results WHERE "title" = 'My Title'
-        String selection = DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME + " = ?";
-        String[] selectionArgs = { "1" };
-        Cursor cursor = db.query(
-                DBContract.LoginDB.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        if (cursor.getCount()>0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public String getCurrentUserName() {
-        SQLiteDatabase db = this.getReadableDatabase();
-        String username;
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME,
-                DBContract.LoginDB.COLUMN_ID_NAME
-        };
-        // Filter results WHERE "title" = 'My Title'
-        String selection = DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME + " = ?";
-        String[] selectionArgs = { "1" };
-        Cursor cursor = db.query(
-                DBContract.LoginDB.TABLE_NAME,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        cursor.moveToFirst();
-        username = cursor.getString(
-                cursor.getColumnIndexOrThrow(DBContract.LoginDB.COLUMN_ID_NAME)
-        );
-
-        cursor.close();
-        return username;
-    }
-
-
-    /**
-     * Insert a new user record.
-     * @param id The id of the login session.
-     */
-    public void insert(String id){
         SQLiteDatabase db = this.getWritableDatabase();
+
+        StringBuilder featuresString = new StringBuilder();
+        for (double d : featuresDouble) {
+            featuresString.append(d);
+            featuresString.append(",");
+        }
+
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
-        values.put(DBContract.LoginDB.COLUMN_ID_NAME, id);
-        values.put(DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME, "1");
-
+        values.put(DBContract.FeatureDB.COLUMN_FEATURE, featuresString.toString().substring(0, featuresString.length()-1));
         // Insert the new row, returning the primary key value of the new row
-        db.insert(DBContract.LoginDB.TABLE_NAME, null, values);
+        long newRowId = db.insert(DBContract.FeatureDB.TABLE_NAME, null, values);
+        return newRowId != -1;
     }
 
+    public double[] get() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] projection = {
+                DBContract.FeatureDB.COLUMN_FEATURE
+        };
+        Cursor cursor = db.query(
+                DBContract.FeatureDB.TABLE_NAME,                     // The table to query
+                projection,                               // The columns to return
+                null,                                // The columns for the WHERE clause
+                null,                            // The values for the WHERE clause
+                null,                                     // don't group the rows
+                null,                                     // don't filter by row groups
+                null                                 // The sort order
+        );
+        String line = "";
+        while(cursor.moveToNext()) {
+            line = cursor.getString(cursor.getColumnIndexOrThrow(DBContract.FeatureDB.COLUMN_FEATURE));
+        }
+        cursor.close();
+        String[] split = line.split(",", -1);
+        double[] result = new double[split.length];
+        for (int i = 0; i < split.length; i++) {
+            result[i] = Double.parseDouble(split[i]);
+        }
+        return result;
+    }
 
-    public void login(String id){
-        SQLiteDatabase db = this.getReadableDatabase();
-
+    public boolean update(double[] featuresDouble) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        StringBuilder featuresString = new StringBuilder();
+        for (double d : featuresDouble) {
+            featuresString.append(d);
+            featuresString.append(",");
+        }
+        // New value for one column
         ContentValues values = new ContentValues();
-        values.put(DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME, "1");
-
-        String selection = DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME + " LIKE ?";
-        String[] selectionArgs = { "0" };
-
-        db.update(
-                DBContract.LoginDB.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
-
-
-// New value for one column
-        values = new ContentValues();
-        values.put(DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME, "1");
-
-// Which row to update, based on the title
-        selection = DBContract.LoginDB.COLUMN_ID_NAME + " LIKE ?";
-        String[] selectionArgs1 = { id };
+        values.put(DBContract.FeatureDB.COLUMN_FEATURE, featuresString.toString().substring(0, featuresString.length()-1));
 
         int count = db.update(
-                DBContract.LoginDB.TABLE_NAME,
+                DBContract.FeatureDB.TABLE_NAME,
                 values,
-                selection,
-                selectionArgs1);
-        if (count == 0) {
-            this.insert(id);
-        }
-    }
+                null,
+                null);
+        return count > 0;
 
-    public void logout() {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME, "1");
-
-        String selection = DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME + " LIKE ?";
-        String[] selectionArgs = {"0"};
-
-        db.update(
-                DBContract.LoginDB.TABLE_NAME,
-                values,
-                selection,
-                selectionArgs);
     }
 
     // implement methods from superclass

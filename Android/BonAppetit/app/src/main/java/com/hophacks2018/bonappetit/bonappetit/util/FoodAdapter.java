@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,11 +72,13 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 textDetail.setText(food.getDescription());
                 textName.setText(food.getName());
                 //todo
-               /* Bitmap bitmap = StringToBitMap(food.getImage());
-                BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bitmap);
-                imageView.setBackgroundDrawable(ob);*/
-
-                imageView.setBackgroundResource(R.drawable.camera);
+                if (food.getImage() != null) {
+                    Bitmap bitmap = StringToBitMap(food.getImage());
+                    BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bitmap);
+                    imageView.setBackgroundDrawable(ob);
+                }
+                else
+                    imageView.setBackgroundResource(R.drawable.camera);
 
                 // Create the alert dialog
                 final AlertDialog dialog = builder.create();
@@ -84,6 +87,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 buttonOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        Log.d("order", "isClicked");
                         if (food.isOrdered()){
                             buttonOrder.setBackgroundResource(R.drawable.yes_gray);
                             //todo detele from database
