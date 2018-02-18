@@ -73,4 +73,24 @@ public class ApiRequest extends Request {
         queue.add(nrRequest);
     }
 
+    public void imageUrlRequest(final VolleyCallback callback, String url) {
+        RequestQueue queue = Volley.newRequestQueue(contextf);
+        NetworkResponseRequest nrRequest = new NetworkResponseRequest(com.android.volley.Request.Method.GET, url, null,
+                new Response.Listener<NetworkResponse>() {
+                    @Override
+                    public void onResponse(NetworkResponse response) {
+                        callback.onSuccess(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Context context = contextf.getApplicationContext();
+                Toast toast = Toast.makeText(context, "volley error: "+error.getMessage(), Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+        );
+        queue.add(nrRequest);
+    }
+
 }

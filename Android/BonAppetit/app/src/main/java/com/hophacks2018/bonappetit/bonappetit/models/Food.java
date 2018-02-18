@@ -62,12 +62,12 @@ public class Food {
                         } else {
                             KnowledgeGraphRaw know = modelResult.getModel();
                             try {
-                                Food.this.description = know.itemListElement.get(0).result.description;
+                                Food.this.description = know.itemListElement.get(0).result.detailedDescription.articleBody;
                             } catch (Exception e){
                                 e.printStackTrace();
                             }
                             try{
-                                Food.this.image = know.itemListElement.get(0).result.image.url;
+                                Food.this.image = know.itemListElement.get(0).result.image.contentUrl;
                             } catch (Exception e){
                                 e.printStackTrace();
                             }

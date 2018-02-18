@@ -111,7 +111,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
 //            } else {
 //                return scaleX(x);
 //            }
-            return (float)(1.70) *x;
+            return (float)(1.64) *x;
         }
 
         /**
@@ -120,7 +120,7 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
          */
         public float translateY(float y) {
 //            return scaleY(y);
-            return (y+47)*(float)1.70;
+            return (y+49)*(float)1.64;
         }
 
         public void postInvalidate() {
