@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="Scan your menu"
+        android:text="Take a picture of your menu"
         android:textSize="20dp" />
 
     <Button
@@ -34,5 +34,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
         android:background="@drawable/camera" />
+
+    <Button
+        android:id="@+id/button_review"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/history" />
 
 </RelativeLayout>

@@ -44,11 +44,12 @@ public class ApiService {
         String html = NetworkResponseRequest.parseToString(response);
 
         if (response.statusCode == 200) {
-            result.setStatus(true);
             dishName = MyParser.BingHTMLParser(html);
-            result.setModel(dishName);
+            if (dishName != null) {
+                result.setStatus(true);
+                result.setModel(dishName);
+            }
         } else {
-            result.setStatus(false);
             Log.d("ApiService", "dish name status code: " + response.statusCode);
         }
         return result;
@@ -85,12 +86,14 @@ public class ApiService {
         String html = NetworkResponseRequest.parseToString(response);
 
         if (response.statusCode == 200) {
-            result.setStatus(true);
+
             ArrayList<double[]> rawVectors = MyParser.CookbookHTMLParser(html);
             double[] feature=null;
 
             //todo get feature from rawVectors
 
+            //todo check feature is valid
+            result.setStatus(true);
             result.setModel(feature);
         } else {
             result.setStatus(false);
@@ -120,11 +123,13 @@ public class ApiService {
         String html = NetworkResponseRequest.parseToString(response);
 
         if (response.statusCode == 200) {
-            result.setStatus(true);
+
             cookbookName = MyParser.CookbookSearchHTMLParser(html);
-            result.setModel(cookbookName);
+            if (cookbookName!=null) {
+                result.setStatus(true);
+                result.setModel(cookbookName);
+            }
         } else {
-            result.setStatus(false);
             Log.d("ApiService", "cookbook name status code: " + response.statusCode);
         }
         return result;
@@ -147,8 +152,7 @@ public class ApiService {
         JsonObject jsResp = NetworkResponseRequest.parseToJsonObject(response);
         Gson gson = new Gson();
         KnowledgeGraphRaw knowledgeGraphRaw = gson.fromJson(jsResp, KnowledgeGraphRaw.class);
-        Log.d("asdfgh", jsResp.toString());
-        if (response.statusCode == 200 && ! knowledgeGraphRaw.itemListElement.isEmpty()) {
+        if (response.statusCode == 200 && !knowledgeGraphRaw.itemListElement.isEmpty()) {
             // todo filter valid description
             result.setStatus(true);
             result.setModel(knowledgeGraphRaw);

@@ -50,7 +50,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
+import com.hophacks2018.bonappetit.bonappetit.models.ScanResult;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.Globals;
@@ -74,6 +76,7 @@ import java.util.Date;
  */
 public final class CameraActivity extends AppCompatActivity {
     private TextRecognizer textRecognizer;
+    private Button buttonHistory;
 
     private static final String TAG = "OcrCaptureActivity";
 
@@ -104,29 +107,12 @@ public final class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-
+        buttonHistory = (Button) findViewById(R.id.button_review);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
-
-//        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
-//            @Override
-//            public void getModelOnSuccess(ModelResult<String> modelResult) {
-//                if (modelResult.isStatus()){
-//                    Log.d("asdfgh", modelResult.getModel());
-//                    String name = modelResult.getModel();
-//                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
-//                        @Override
-//                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
-//                            if (modelResult.isStatus()){
-//                                Log.d("asdfgh", modelResult.getModel().toString());
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-
         captureButton = (Button) findViewById(R.id.button_capture);
+
         rotation = getWindowManager().getDefaultDisplay().getRotation();
+        buttonHistory.setOnClickListener(onClickListener);
 
         // Set good defaults for capturing text.
         boolean autoFocus = true;
@@ -222,21 +208,20 @@ public final class CameraActivity extends AppCompatActivity {
                                     Globals globals = (Globals)getApplication();
                                     globals.setTextBlockSparseArray(textRecognizer.detect(outputFrame));
 
+                                    globals.setScanResult(new ScanResult(CameraActivity.this, imageFile.toString()));
+                                    ScanResult scanResult = globals.getScanResult();
+
                                     for (int i = 0; i < globals.getTextBlockSparseArray().size(); ++i) {
                                         TextBlock item = globals.getTextBlockSparseArray().valueAt(i);
                                         if (item != null && item.getValue() != null) {
-                                            Log.d("asdfghj", "Text detected! " + item.getValue());
+                                            Food food = new Food(item.getValue(), scanResult, CameraActivity.this);
+                                            scanResult.addFoodItem(food);
                                         }
                                     }
-                                    Log.d("asdfghj", "Text detected finish! ");
+                                    scanResult.finishFilling();
 
-
-                                    //String intentString = BitMapToString(rotatedBitmap);
-                                    Intent intent = new Intent(CameraActivity.this, MenuActivity.class);
-                                    intent.putExtra("image", imageFile.toString());
-                                    startActivity(intent);
-                                    finish();
-                                    Log.d("AndroidFinish", "Activity finish");
+                                    Log.d("AndroidFinish", "waiting...................................");
+                                    globals.setImagePath(imageFile.toString());
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -248,6 +233,16 @@ public final class CameraActivity extends AppCompatActivity {
         );
 
     }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(CameraActivity.this, ReviewActivity.class);
+            startActivity(intent);
+            finish();
+            System.gc();
+        }
+    };
 
     /**
      * Handles the requesting of the camera permission.  This includes

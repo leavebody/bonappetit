@@ -38,10 +38,10 @@ public class ResultActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         foodArrayList = new ArrayList<>();
-        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)));
-        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)));
-        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)));
-        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", Bitmap.createBitmap(50, 50, Bitmap.Config.ARGB_8888)));
+        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
+        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
+        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
+        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
 
         //set Adapter
         foodAdapter = new FoodAdapter(this, foodArrayList);
@@ -50,8 +50,6 @@ public class ResultActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(foodAdapter);
-
-
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -59,11 +57,10 @@ public class ResultActivity extends AppCompatActivity {
         public void onClick(View v) {
             Intent nextActivity = new Intent(ResultActivity.this, RecommendActivity.class);
             startActivity(nextActivity);
-            //push from bottom to top
-            //overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
             //slide from right to left
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             finish();
+            System.gc();
         }
     };
 }
