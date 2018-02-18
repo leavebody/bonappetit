@@ -53,6 +53,7 @@ import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
+import com.hophacks2018.bonappetit.bonappetit.util.Globals;
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
 import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
@@ -215,13 +216,14 @@ public final class CameraActivity extends AppCompatActivity {
                                             imageFile.getAbsolutePath());
                                     Log.d("AndroidFinish", "image finish");
 
-
+                                    //set the textBlocks
                                     Frame outputFrame = new Frame.Builder().setBitmap(rotatedBitmap).build();
                                     textRecognizer = new TextRecognizer.Builder(getApplicationContext()).build();
-                                    SparseArray<TextBlock> textBlockSparseArray = textRecognizer.detect(outputFrame);
+                                    Globals globals = (Globals)getApplication();
+                                    globals.setTextBlockSparseArray(textRecognizer.detect(outputFrame));
 
-                                    for (int i = 0; i < textBlockSparseArray.size(); ++i) {
-                                        TextBlock item = textBlockSparseArray.valueAt(i);
+                                    for (int i = 0; i < globals.getTextBlockSparseArray().size(); ++i) {
+                                        TextBlock item = globals.getTextBlockSparseArray().valueAt(i);
                                         if (item != null && item.getValue() != null) {
                                             Log.d("asdfghj", "Text detected! " + item.getValue());
                                             OcrGraphic graphic = new OcrGraphic(mGraphicOverlay, item);
@@ -232,7 +234,7 @@ public final class CameraActivity extends AppCompatActivity {
 
 
                                     //String intentString = BitMapToString(rotatedBitmap);
-                                    Intent intent = new Intent(CameraActivity.this, MenuActivity.class);
+                                    Intent intent = new Intent(CameraActivity.this, ResultActivity.class);
                                     intent.putExtra("image", imageFile.toString());
                                     startActivity(intent);
                                     finish();

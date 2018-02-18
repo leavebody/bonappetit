@@ -23,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.util.Log;
 
 import com.google.android.gms.vision.text.Text;
 import com.google.android.gms.vision.text.TextBlock;
@@ -115,10 +116,14 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         // Break the text into multiple lines and draw each one according to its own bounding box.
         List<? extends Text> textComponents = mText.getComponents();
         for(Text currentText : textComponents) {
+
             float left = translateX(currentText.getBoundingBox().left);
             float bottom = translateY(currentText.getBoundingBox().bottom);
             canvas.drawText(currentText.getValue(), left, bottom, sTextPaint);
+            Log.d("ToDraw", "in the draw text");
         }
+
+        Log.d("ToDraw", "in the draw");
     }
 }
 
