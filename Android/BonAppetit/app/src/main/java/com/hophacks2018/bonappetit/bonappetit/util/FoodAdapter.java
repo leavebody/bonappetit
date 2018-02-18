@@ -48,7 +48,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
             int position = getAdapterPosition(); // gets item position
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 final Food food = mFood.get(position);
-                Toast.makeText(getContext(), food.getName(), Toast.LENGTH_SHORT).show();
 /*
                 final AlertDialog alertDialog = builder.create();
                 LayoutInflater inflater = alertDialog.getLayoutInflater();

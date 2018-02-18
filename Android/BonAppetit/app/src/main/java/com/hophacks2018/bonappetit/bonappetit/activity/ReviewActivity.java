@@ -1,8 +1,6 @@
 package com.hophacks2018.bonappetit.bonappetit.activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -10,54 +8,53 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter;
+import com.hophacks2018.bonappetit.bonappetit.util.ReviewAdapter;
 
 import java.util.ArrayList;
 
 import static android.widget.LinearLayout.VERTICAL;
 
-public class RecommendActivity extends AppCompatActivity {
+public class ReviewActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ArrayList<Food> foodArrayList;
-    private FoodAdapter foodAdapter;
+    private ArrayList<Food> reviewList;
+    private ReviewAdapter reviewAdapter;
     private Button buttonPre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recommend);
-
-        buttonPre = (Button) findViewById(R.id.preButton);
-        buttonPre.setOnClickListener(onClickListener);
+        setContentView(R.layout.activity_review);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        foodArrayList = new ArrayList<>();
-        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
-        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
-        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
-        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
+        buttonPre = (Button) findViewById(R.id.preButton);
+
+        buttonPre.setOnClickListener(onClickListener);
+
+        reviewList = new ArrayList<>();
+        reviewList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
+        reviewList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
+        reviewList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
+        reviewList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
 
         //set Adapter
-        foodAdapter = new FoodAdapter(this, foodArrayList);
+        reviewAdapter = new ReviewAdapter(this, reviewList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(),  VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(foodAdapter);
+        recyclerView.setAdapter(reviewAdapter);
     }
 
     View.OnClickListener onClickListener = new View.OnClickListener() {
 
         public void onClick(View v) {
-            Intent nextActivity = new Intent(RecommendActivity.this, MenuActivity.class);
+            Intent nextActivity = new Intent(ReviewActivity.this, CameraActivity.class);
             startActivity(nextActivity);
-            //push from bottom to top
-            //overridePendingTransition(R.anim.push_up_in, R.anim.push_up_out);
-            //slide from right to left
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
             finish();
             System.gc();
         }
