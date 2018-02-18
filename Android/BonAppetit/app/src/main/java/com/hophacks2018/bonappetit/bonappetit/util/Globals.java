@@ -28,8 +28,6 @@ public class Globals extends Application {
 
     ScanResult scanResult;
 
-    Context context = getApplicationContext();
-    Singleton sin = Singleton.getInstance(context);
 
     public ScanResult rateResult;
 

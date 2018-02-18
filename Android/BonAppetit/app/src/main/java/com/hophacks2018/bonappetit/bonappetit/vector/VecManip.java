@@ -138,7 +138,10 @@ public class VecManip {
     }
 
     public double[] compute(ArrayList<double[]> aa) {
-
+        double[] a  = new double[]{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        if (aa == null) {
+            return a;
+        }
         double[] aa1 = Matrix.multiply(mat1, aa.get(0));
         double[] aa2 = Matrix.multiply(mat2, aa.get(1));
         double[] aa3 = Matrix.multiply(mat3, aa.get(2));
