@@ -1,4 +1,4 @@
-
+package util;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -110,8 +110,7 @@ public class MyParser {
 
 
         final String EoL = System.getProperty("line.separator");
-        List<String> lines = Files.readAllLines(Paths.get("wikitest.html"),
-                                Charset.defaultCharset());
+        List<String> lines = Files.readAllLines(Paths.get("wikitest.html"), Charset.defaultCharset());
 
         StringBuilder sb = new StringBuilder();
         for (String line : lines) {

@@ -1,3 +1,4 @@
+package util;
 import java.io.*;
 import java.util.HashMap;
 
@@ -20,7 +21,7 @@ class Singleton
     private Singleton() throws IOException, FileNotFoundException, ClassNotFoundException
     {
         // Reading the object from a file
-        FileInputStream file = new FileInputStream("ingredient.ser");
+        FileInputStream file = new FileInputStream("./src/util/ingredient.ser");
         ObjectInputStream in = new ObjectInputStream(file);
         // Method for deserialization of object
         ingredient = (HashMap<String, Integer>) in.readObject();
@@ -28,7 +29,7 @@ class Singleton
         file.close();
         ingredientN = ingredient.size();
 
-        file = new FileInputStream("subcategory.ser");
+        file = new FileInputStream("./src/util/subcategory.ser");
         in = new ObjectInputStream(file);
         // Method for deserialization of object
         subcategory = (HashMap<String, Integer>) in.readObject();
@@ -36,7 +37,7 @@ class Singleton
         file.close();
         subcategoryN = subcategory.size();
 
-        file = new FileInputStream("category.ser");
+        file = new FileInputStream("./src/util/category.ser");
         in = new ObjectInputStream(file);
         // Method for deserialization of object
         category = (HashMap<String, Integer>) in.readObject();
@@ -44,14 +45,14 @@ class Singleton
         file.close();
         categoryN = category.size();
 
-        file = new FileInputStream("ingrSub.ser");
+        file = new FileInputStream("./src/util/ingrSub.ser");
         in = new ObjectInputStream(file);
         // Method for deserialization of object
         ingrSub = (double[][]) in.readObject();
         in.close();
         file.close();
 
-        file = new FileInputStream("ingrCate.ser");
+        file = new FileInputStream("./src/util/ingrCate.ser");
         in = new ObjectInputStream(file);
         // Method for deserialization of object
         ingrCate = (double[][]) in.readObject();
