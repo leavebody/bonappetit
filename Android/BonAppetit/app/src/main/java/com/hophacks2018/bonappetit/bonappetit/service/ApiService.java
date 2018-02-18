@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.request.ApiRequest;
 import com.hophacks2018.bonappetit.bonappetit.util.MyParser;
 import com.hophacks2018.bonappetit.bonappetit.util.NetworkResponseRequest;
@@ -123,6 +126,35 @@ public class ApiService {
         } else {
             result.setStatus(false);
             Log.d("ApiService", "cookbook name status code: " + response.statusCode);
+        }
+        return result;
+    }
+
+
+    public static void getKnowledge(final Context c, String dishName, final ServiceCallBack<KnowledgeGraphRaw> callback) {
+        ApiRequest request = new ApiRequest(c);
+        request.knowledgeGraphRequest(new VolleyCallback() {
+            @Override
+            public void onSuccess(NetworkResponse response) {
+                callback.getModelOnSuccess(getKnowledgeRespProcess(response));
+            }
+        }, dishName);
+    }
+
+    private static ModelResult<KnowledgeGraphRaw> getKnowledgeRespProcess(NetworkResponse response) {
+        ModelResult<KnowledgeGraphRaw> result = new ModelResult();
+
+        JsonObject jsResp = NetworkResponseRequest.parseToJsonObject(response);
+        Gson gson = new Gson();
+        KnowledgeGraphRaw knowledgeGraphRaw = gson.fromJson(jsResp, KnowledgeGraphRaw.class);
+        Log.d("asdfgh", jsResp.toString());
+        if (response.statusCode == 200 && ! knowledgeGraphRaw.itemListElement.isEmpty()) {
+            // todo filter valid description
+            result.setStatus(true);
+            result.setModel(knowledgeGraphRaw);
+        } else {
+            result.setStatus(false);
+            Log.d("ApiService", "Knowledge status code: " + response.statusCode);
         }
         return result;
     }

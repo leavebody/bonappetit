@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 
 import com.hophacks2018.bonappetit.bonappetit.R;
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
 import com.hophacks2018.bonappetit.bonappetit.service.ServiceCallBack;
@@ -48,6 +49,15 @@ public class CameraActivity extends AppCompatActivity {
             public void getModelOnSuccess(ModelResult<String> modelResult) {
                 if (modelResult.isStatus()){
                     Log.d("asdfgh", modelResult.getModel());
+                    String name = modelResult.getModel();
+                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
+                        @Override
+                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
+                            if (modelResult.isStatus()){
+                                Log.d("asdfgh", modelResult.getModel().toString());
+                            }
+                        }
+                    });
                 }
             }
         });

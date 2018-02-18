@@ -6,43 +6,40 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-
 /**
- * The helper class to handle the login SQLite database
  * @author Xiaochen Li
  */
 
-public class LoginDBHelper extends SQLiteOpenHelper {
+public class FeatureDBHelper extends SQLiteOpenHelper {
     // If you change the database schema, you must increment the database version.
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "Login.db";
+    public static final String DATABASE_NAME = "Feature.db";
 
     private static final String SQL_CREATE_ENTRIES =
-            "CREATE TABLE " + DBContract.LoginDB.TABLE_NAME + " (" +
-                    DBContract.LoginDB.COLUMN_ID_NAME + " TEXT PRIMARY KEY," +
-                    DBContract.LoginDB.COLUMN_ISLOGGEDIN_NAME + " INTEGER)";
+            "CREATE TABLE " + DBContract.FeatureDB.TABLE_NAME + " (" +
+                    DBContract.FeatureDB.COLUMN_FEATURE + " TEXT PRIMARY KEY)";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + DBContract.LoginDB.TABLE_NAME;
+            "DROP TABLE IF EXISTS " + DBContract.FeatureDB.TABLE_NAME;
 
     // implement the singleton pattern
-    private static LoginDBHelper instance;
+    private static FeatureDBHelper instance;
 
-    private LoginDBHelper(Context context) {
+    private FeatureDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
-    public static LoginDBHelper getInstance(Context context) {
+    public static FeatureDBHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new LoginDBHelper(context.getApplicationContext());
+            instance = new FeatureDBHelper(context.getApplicationContext());
         }
         return instance;
     }
 
 
-    public boolean isLoggedin() {
+    public boolean insert(double[] featuresDouble) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String username;
+        String featuresString;
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -169,7 +166,7 @@ public class LoginDBHelper extends SQLiteOpenHelper {
                 selectionArgs);
     }
 
-        // implement methods from superclass
+    // implement methods from superclass
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
     }
