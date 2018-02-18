@@ -50,13 +50,22 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+
+import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
+import com.hophacks2018.bonappetit.bonappetit.models.ReviewObj;
+import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
+import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
+import com.hophacks2018.bonappetit.bonappetit.util.FeatureDBHelper;
+
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
 import com.hophacks2018.bonappetit.bonappetit.models.ScanResult;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.Globals;
+
 import com.hophacks2018.bonappetit.bonappetit.util.GraphicOverlay;
+import com.hophacks2018.bonappetit.bonappetit.util.HistoryDBHelper;
 import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
@@ -66,6 +75,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Date;
 
 
@@ -107,9 +117,11 @@ public final class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
+
         buttonHistory = (Button) findViewById(R.id.button_review);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
         captureButton = (Button) findViewById(R.id.button_capture);
+
 
         rotation = getWindowManager().getDefaultDisplay().getRotation();
         buttonHistory.setOnClickListener(onClickListener);
