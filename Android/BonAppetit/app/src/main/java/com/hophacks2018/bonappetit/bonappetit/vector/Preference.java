@@ -1,10 +1,16 @@
+package com.hophacks2018.bonappetit.bonappetit.vector;
+
+import com.hophacks2018.bonappetit.bonappetit.models.Food;
+
+
 import java.util.ArrayList;
 
+
 public class Preference {
-    public double[] vec;
+    private double[] vec;
     private double n;
 
-    public Preference(){
+    public Preference(Food fd){
         this.initVec();
     }
 
@@ -27,7 +33,7 @@ public class Preference {
         double[] added = a.compute(fea);
         double[] result = new double[added.length];
         for (int i = 0; i < added.length; i++){
-            result[i]= (1-rate)*added[i]+rate * this.vec[i];
+            result[i]= added[i]+rate * this.vec[i];
         }
         this.vec = result;
         return result;
