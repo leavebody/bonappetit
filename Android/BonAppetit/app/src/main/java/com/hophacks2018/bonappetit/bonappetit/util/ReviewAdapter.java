@@ -84,8 +84,13 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         Food food = mFood.get(position);
 
         // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), food.getImage());
-        holder.photo.setBackgroundDrawable(ob);
+        if (isNumeric(food.getImage())){
+            holder.photo.setBackgroundResource(Integer.parseInt(food.getImage()));
+        }
+        else {
+            BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
+            holder.photo.setBackgroundDrawable(ob);
+        }
         holder.textView.setText(food.getRawName());
 
     }
@@ -107,5 +112,18 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             return null;
         }
 
+    }
+
+    public boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 }
