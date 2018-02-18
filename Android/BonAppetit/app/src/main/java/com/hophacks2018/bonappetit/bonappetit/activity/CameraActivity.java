@@ -76,6 +76,7 @@ import java.util.Date;
  */
 public final class CameraActivity extends AppCompatActivity {
     private TextRecognizer textRecognizer;
+    private Button buttonHistory;
 
     private static final String TAG = "OcrCaptureActivity";
 
@@ -106,29 +107,12 @@ public final class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         mPreview = (CameraSourcePreview) findViewById(R.id.preview);
-
+        buttonHistory = (Button) findViewById(R.id.button_review);
         mGraphicOverlay = (GraphicOverlay<OcrGraphic>) findViewById(R.id.graphicOverlay);
-
-//        ApiService.getDishName(this, "mapo tofu", new ServiceCallBack<String>() {
-//            @Override
-//            public void getModelOnSuccess(ModelResult<String> modelResult) {
-//                if (modelResult.isStatus()){
-//                    Log.d("asdfgh", modelResult.getModel());
-//                    String name = modelResult.getModel();
-//                    ApiService.getKnowledge(CameraActivity.this, name, new ServiceCallBack<KnowledgeGraphRaw>() {
-//                        @Override
-//                        public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
-//                            if (modelResult.isStatus()){
-//                                Log.d("asdfgh", modelResult.getModel().toString());
-//                            }
-//                        }
-//                    });
-//                }
-//            }
-//        });
-
         captureButton = (Button) findViewById(R.id.button_capture);
+
         rotation = getWindowManager().getDefaultDisplay().getRotation();
+        buttonHistory.setOnClickListener(onClickListener);
 
         // Set good defaults for capturing text.
         boolean autoFocus = true;
@@ -237,6 +221,7 @@ public final class CameraActivity extends AppCompatActivity {
                                     scanResult.finishFilling();
 
                                     Log.d("AndroidFinish", "waiting...................................");
+                                    globals.setImagePath(imageFile.toString());
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -248,6 +233,16 @@ public final class CameraActivity extends AppCompatActivity {
         );
 
     }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(CameraActivity.this, ReviewActivity.class);
+            startActivity(intent);
+            finish();
+            System.gc();
+        }
+    };
 
     /**
      * Handles the requesting of the camera permission.  This includes

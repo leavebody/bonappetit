@@ -20,6 +20,7 @@ public class Food {
     private ScanResult father;
     private static Context c;
     public boolean isValid = true;
+    private double rate;
 
     public Food(String rawName, ScanResult father, Context c) {
         this.rawName = rawName;
@@ -113,5 +114,13 @@ public class Food {
 
     public void setFeatureVector(double[] featureVector) {
         this.featureVector = featureVector;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 }

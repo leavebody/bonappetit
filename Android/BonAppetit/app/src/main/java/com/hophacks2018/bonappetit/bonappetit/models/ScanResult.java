@@ -51,6 +51,7 @@ public class ScanResult {
 
     public void doneAll(){
         Intent intent = new Intent(grandpa, MenuActivity.class);
+        grandpa.startActivity(intent);
         grandpa.finish();
     }
 

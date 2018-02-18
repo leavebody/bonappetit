@@ -1,12 +1,17 @@
 package com.hophacks2018.bonappetit.bonappetit.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toolbar;
 
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
@@ -21,94 +26,41 @@ public class ResultActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Food> foodArrayList;
     private FoodAdapter foodAdapter;
+    private Button buttonNext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
+        buttonNext = (Button) findViewById(R.id.nextButton);
+        buttonNext.setOnClickListener(onClickListener);
+
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         foodArrayList = new ArrayList<>();
-//        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
-//        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
-//        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
-//        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", Bitmap.createBitmap(50,50, Bitmap.Config.ARGB_8888)));
+        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
+        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
+        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
+        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
 
         //set Adapter
         foodAdapter = new FoodAdapter(this, foodArrayList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(),  VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext(), VERTICAL, false);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(foodAdapter);
-
-        /*gestureLayout.setSwipeGestureListener(new onSwipeGestureListener() {
-
-            @Override
-            public void onRightSwipe() {
-                Log.i("debug", "onRightSwipe");
-            }
-
-            @Override
-            public void onLeftSwipe() {
-                Log.i("debug", "onLeftSwipe");
-            }
-        });*/
-
     }
 
-   /* @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                mDownX = mTempX = (int) ev.getRawX();
-                mDownY = (int) ev.getRawY();
-                break;
-            case MotionEvent.ACTION_MOVE:
-                int moveX = (int) ev.getRawX();
-                // 满足此条件屏蔽SildingFinishLayout里面子类的touch事件
-                if (Math.abs(moveX - mDownX) > mTouchSlop
-                        && Math.abs((int) ev.getRawY() - mDownY) < mTouchSlop) {
-                    return true;
-                }
-                break;
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+
+        public void onClick(View v) {
+            Intent nextActivity = new Intent(ResultActivity.this, RecommendActivity.class);
+            startActivity(nextActivity);
+            //slide from right to left
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            finish();
+            System.gc();
         }
-
-        return super.onInterceptTouchEvent(ev);
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_MOVE:
-                int moveX = (int) event.getRawX();
-                int deltaX = mTempX - moveX;
-//          Log.i("debug", "deltaX:" + deltaX + "mTouchSlop:" + mTouchSlop);
-                mTempX = moveX;
-                if (Math.abs(moveX - mDownX) > mTouchSlop
-                        && Math.abs((int) event.getRawY() - mDownY) < mTouchSlop) {
-                    isSilding = true;
-                }
-
-                if (Math.abs(moveX - mDownX) >= 0 && isSilding) {
-//              mContentView.scrollBy(deltaX, 0);
-                    totalMoveX += deltaX;
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                isSilding = false;
-//          Log.i("debug", "TotoalMoveX:" + totalMoveX + "viewVidth:" + viewWidth);
-                if (Math.abs(totalMoveX) >= viewWidth / 3) {
-                    if (totalMoveX > 0) {
-                        swipeListener.onLeftSwipe();
-                    }else {
-                        swipeListener.onRightSwipe();
-                    }
-                }
-                totalMoveX = 0;
-                break;
-        }
-
-        return true;
-    }*/
+    };
 }
