@@ -31,6 +31,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     public TextView textView;
     public RatingBar ratingBar;
     private Context context;
+    private HistoryDBHelper historyDBHelper;
 
     public MyViewHolder(View view, Context context) {
         super(view);
@@ -50,6 +51,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
             food.setRate(ratingBar.getRating());
             //todo delete from database, training
+            historyDBHelper = HistoryDBHelper.getInstance(getContext());
+            historyDBHelper.delete(food.getName());
         }
     }
 }

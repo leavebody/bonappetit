@@ -10,8 +10,8 @@ import java.util.Date;
 public class ReviewObj {
     public String name; // The name recognized from the menu.
     public String path; // The official name of this dish.
-    private Date time;
-    private double[] features;
+    public Date time;
+    public double[] features;
 
     public ReviewObj(String name, String path, Date time, double[] features) {
         this.name = name;

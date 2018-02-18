@@ -20,6 +20,8 @@ public class Globals extends Application {
 
     ScanResult scanResult;
 
+    public ScanResult rateResult;
+
     String menuPath;
 
     public SparseArray<TextBlock> getTextBlockSparseArray() {
@@ -44,5 +46,13 @@ public class Globals extends Application {
 
     public void setImagePath(String imagePath) {
         this.menuPath = imagePath;
+    }
+
+    public ScanResult getRateResult() {
+        return rateResult;
+    }
+
+    public void setRateResult(ScanResult rateResult) {
+        this.rateResult = rateResult;
     }
 }
