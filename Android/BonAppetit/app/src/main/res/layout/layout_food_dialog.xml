@@ -8,6 +8,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/buttonOrder"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/yes_gray" />
+
         <TextView
             android:id="@+id/foodName"
             android:layout_width="250dp"
@@ -17,17 +24,14 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-       <!-- <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="25dp"
-            android:layout_height="25dp" />-->
+
     </RelativeLayout>
 
     <ImageView
-        android:layout_gravity="center"
         android:id="@+id/foodImage"
         android:layout_width="25dp"
-        android:layout_height="25dp" />
+        android:layout_height="25dp"
+        android:layout_gravity="center" />
 
     <ScrollView
         android:layout_width="match_parent"
