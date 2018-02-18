@@ -21,6 +21,7 @@ public class Food {
     private static Context c;
     public boolean isValid = true;
     private double rate;
+    private boolean isOrdered = false;
 
     public Food(String rawName, ScanResult father, Context c) {
         this.rawName = rawName;
@@ -130,5 +131,13 @@ public class Food {
 
     public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public boolean isOrdered() {
+        return isOrdered;
+    }
+
+    public void setOrdered(boolean ordered) {
+        isOrdered = ordered;
     }
 }

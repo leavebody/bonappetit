@@ -63,7 +63,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 builder.setView(dialogView);
 
                 // Get the custom alert dialog view widgets reference
-                //Button btnCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+                final Button buttonOrder = (Button) dialogView.findViewById(R.id.buttonOrder);
                 TextView textName = (TextView) dialogView.findViewById(R.id.foodName);
                 TextView textDetail = (TextView) dialogView.findViewById(R.id.foodDetail);
                 ImageView imageView = (ImageView) dialogView.findViewById(R.id.foodImage);
@@ -81,13 +81,19 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 final AlertDialog dialog = builder.create();
 
                 // Set negative/no button click listener
-               /* btnCancel.setOnClickListener(new View.OnClickListener() {
+                buttonOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Dismiss the alert dialog
-                        dialog.cancel();
+                        if (food.isOrdered()){
+                            buttonOrder.setBackgroundResource(R.drawable.yes_gray);
+                            //todo detele from database
+                        }
+                        else {
+                            buttonOrder.setBackgroundResource(R.drawable.yes_green);
+                            //Todo insert into database
+                        }
                     }
-                });*/
+                });
 
                 dialog.show();
             }
