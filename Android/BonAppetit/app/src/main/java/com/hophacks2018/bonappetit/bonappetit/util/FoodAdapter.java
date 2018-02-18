@@ -146,7 +146,6 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         // Set item views based on your views and data model
         BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
         Bitmap bm = getBitmapFromURL(food.getImage());
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bm);
         holder.photo.setBackgroundDrawable(ob);
         holder.textView.setText(food.getRawName());
 
