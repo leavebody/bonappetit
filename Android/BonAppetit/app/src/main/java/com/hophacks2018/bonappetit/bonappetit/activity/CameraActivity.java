@@ -226,15 +226,13 @@ public final class CameraActivity extends AppCompatActivity {
                                         TextBlock item = globals.getTextBlockSparseArray().valueAt(i);
                                         if (item != null && item.getValue() != null) {
                                             Log.d("asdfghj", "Text detected! " + item.getValue());
-                                            OcrGraphic graphic = new OcrGraphic(mGraphicOverlay, item);
-                                            mGraphicOverlay.add(graphic);
                                         }
                                     }
                                     Log.d("asdfghj", "Text detected finish! ");
 
 
                                     //String intentString = BitMapToString(rotatedBitmap);
-                                    Intent intent = new Intent(CameraActivity.this, ResultActivity.class);
+                                    Intent intent = new Intent(CameraActivity.this, MenuActivity.class);
                                     intent.putExtra("image", imageFile.toString());
                                     startActivity(intent);
                                     finish();

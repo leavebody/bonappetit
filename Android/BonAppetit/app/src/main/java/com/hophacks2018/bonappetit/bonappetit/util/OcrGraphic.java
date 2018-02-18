@@ -106,24 +106,22 @@ public class OcrGraphic extends GraphicOverlay.Graphic {
         }
 
         // Draws the bounding box around the TextBlock.
+
         RectF rect = new RectF(mText.getBoundingBox());
+
         rect.left = translateX(rect.left);
         rect.top = translateY(rect.top);
         rect.right = translateX(rect.right);
         rect.bottom = translateY(rect.bottom);
+//
+//        Log.d("rect.", "after:");
+//        Log.d("rect.left", ""+rect.left);
+//        Log.d("rect.top", ""+rect.top);
+//        Log.d("rect.right", ""+rect.right);
+//        Log.d("rect.bottom", ""+rect.bottom);
+
         canvas.drawRect(rect, sRectPaint);
 
-        // Break the text into multiple lines and draw each one according to its own bounding box.
-        List<? extends Text> textComponents = mText.getComponents();
-        for(Text currentText : textComponents) {
-
-            float left = translateX(currentText.getBoundingBox().left);
-            float bottom = translateY(currentText.getBoundingBox().bottom);
-            canvas.drawText(currentText.getValue(), left, bottom, sTextPaint);
-            Log.d("ToDraw", "in the draw text");
-        }
-
-        Log.d("ToDraw", "in the draw");
     }
 }
 

@@ -70,15 +70,12 @@ public class MenuActivity extends AppCompatActivity {
         int height = displayMetrics.heightPixels;
         int width = displayMetrics.widthPixels;
 
-        Bitmap b = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(b);
-
         for (int i = 0; i < sparseArray.size(); i++) {
             TextBlock textBlock = (TextBlock) globals.getTextBlockSparseArray().valueAt(i);
-            OcrGraphic ocrGraphic = new OcrGraphic(mGraphicOverlay, textBlock);
-            //mGraphicOverlay.draw(canvas);
-            ocrGraphic.draw(canvas);
-
+            if (textBlock != null && textBlock.getValue() != null) {
+                OcrGraphic ocrGraphic = new OcrGraphic(mGraphicOverlay, textBlock);
+                mGraphicOverlay.add(ocrGraphic);
+            }
             /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -113,16 +110,7 @@ public class MenuActivity extends AppCompatActivity {
             });*/
         }
     }
-
-    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
-
-        @Override
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
-        }
-    }
     /**
-     * onTap is called to speak the tapped TextBlock, if any, out loud.
      *
      * @param rawX - the raw position of the tap
      * @param rawY - the raw position of the tap.
@@ -134,17 +122,32 @@ public class MenuActivity extends AppCompatActivity {
         if (graphic != null) {
             text = graphic.getTextBlock();
             if (text != null && text.getValue() != null) {
-                Log.d("onTap", "text data is being spoken! " + text.getValue());
-                //todo show dialog
+                Log.d("tap", "text data is being spoken! " + text.getValue());
             }
             else {
-                Log.d("onTap", "text data is null");
+                Log.d("tap", "text data is null");
             }
         }
         else {
-            Log.d("onTap","no text detected");
+            Log.d("tap","no text detected");
         }
         return text != null;
+    }
+
+    private class CaptureGestureListener extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            return onTap(e.getRawX(), e.getRawY()) || super.onSingleTapConfirmed(e);
+        }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+
+        boolean c = gestureDetector.onTouchEvent(e);
+
+        return c || super.onTouchEvent(e);
     }
 
 }
