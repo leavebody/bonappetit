@@ -1,6 +1,9 @@
 package com.hophacks2018.bonappetit.bonappetit.service;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.android.volley.NetworkResponse;
@@ -12,6 +15,9 @@ import com.hophacks2018.bonappetit.bonappetit.util.MyParser;
 import com.hophacks2018.bonappetit.bonappetit.util.NetworkResponseRequest;
 import com.hophacks2018.bonappetit.bonappetit.util.VolleyCallback;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -162,4 +168,5 @@ public class ApiService {
         }
         return result;
     }
+
 }

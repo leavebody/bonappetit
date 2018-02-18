@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +27,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.vision.text.TextBlock;
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
@@ -36,9 +42,13 @@ import com.hophacks2018.bonappetit.bonappetit.util.OcrGraphic;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+
+import static com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter.getBitmapFromURL;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -144,17 +154,37 @@ public class MenuActivity extends AppCompatActivity {
         final Button buttonOrder = (Button) dialogView.findViewById(R.id.buttonOrder);
         TextView textName = (TextView) dialogView.findViewById(R.id.foodName);
         TextView textDetail = (TextView) dialogView.findViewById(R.id.foodDetail);
-        ImageView imageView = (ImageView) dialogView.findViewById(R.id.foodImage);
+        final ImageView imageView = (ImageView) dialogView.findViewById(R.id.foodImage);
 
         textDetail.setText(food.getDescription());
         textName.setText(food.getName());
 
         if (food.getImage() != null) {
-            Bitmap bitmap = StringToBitMap(food.getImage());
-            BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
-            imageView.setBackgroundDrawable(ob);
-        } else
+            ImageView mImageView;
+            String url = food.getImage();
+            Log.d("imageurl", url);
+
+// Retrieves an image specified by the URL, displays it in the UI.
+            ImageRequest request = new ImageRequest(url,
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            imageView.setImageBitmap(bitmap);
+                        }
+                    }, 0, 0, null,
+                    new Response.ErrorListener() {
+                @Override
+                        public void onErrorResponse(VolleyError error) {
+                imageView.setImageResource(R.drawable.camera);
+                        }
+                    });
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
+
+        } else {
             imageView.setBackgroundResource(R.drawable.camera);
+        }
+
 
         // Create the alert dialog
         final AlertDialog dialog = builder.create();

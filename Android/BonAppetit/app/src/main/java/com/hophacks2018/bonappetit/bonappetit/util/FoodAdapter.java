@@ -21,6 +21,10 @@ import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.activity.ResultActivity;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -137,9 +141,12 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // Get the data model based on position
         Food food = mFood.get(position);
+        Log.d("bind", "viewholder");
 
         // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), food.getImage());
+
+        Bitmap bm = getBitmapFromURL(food.getImage());
+        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bm);
         holder.photo.setBackgroundDrawable(ob);
         holder.textView.setText(food.getRawName());
 
@@ -163,4 +170,18 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         }
     }
 
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            Log.d("bitmap", "ioexception");
+            return null;
+        }
+    }
 }
