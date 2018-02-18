@@ -1,8 +1,12 @@
 package com.hophacks2018.bonappetit.bonappetit.vector.util;
+import android.content.Context;
+
+import com.hophacks2018.bonappetit.bonappetit.R;
+
 import java.io.*;
 import java.util.HashMap;
 
-class Singleton
+public class Singleton
 {
     // static variable single_instance of type Singleton
     private static Singleton single_instance = null;
@@ -16,48 +20,47 @@ class Singleton
     public int ingredientN = 0;
     public int subcategoryN = 0;
     public int categoryN = 0;
+    private Context c;
  
     // private constructor restricted to this class itself
     private Singleton() throws IOException, FileNotFoundException, ClassNotFoundException
     {
         // Reading the object from a file
-        FileInputStream file = new FileInputStream("./src/util/ingredient.ser");
-        ObjectInputStream in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        ingredient = (HashMap<String, Integer>) in.readObject();
-        in.close();
-        file.close();
-        ingredientN = ingredient.size();
 
-        file = new FileInputStream("./src/util/subcategory.ser");
-        in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        subcategory = (HashMap<String, Integer>) in.readObject();
-        in.close();
-        file.close();
-        subcategoryN = subcategory.size();
-
-        file = new FileInputStream("./src/util/category.ser");
-        in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        category = (HashMap<String, Integer>) in.readObject();
-        in.close();
-        file.close();
-        categoryN = category.size();
-
-        file = new FileInputStream("./src/util/ingrSub.ser");
-        in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        ingrSub = (double[][]) in.readObject();
-        in.close();
-        file.close();
-
-        file = new FileInputStream("./src/util/ingrCate.ser");
-        in = new ObjectInputStream(file);
-        // Method for deserialization of object
-        ingrCate = (double[][]) in.readObject();
-        in.close();
-        file.close();
+//
+//        InputStream is = this.c.getApplicationContext().getResources().openRawResource(R.raw.ingredient);
+//        ObjectInputStream in = new ObjectInputStream(is);
+//
+//        // Method for deserialization of object
+//        ingredient = (HashMap<String, Integer>) in.readObject();
+//        in.close();
+//        ingredientN = ingredient.size();
+//
+//        is = this.c.getApplicationContext().getResources().openRawResource(R.raw.subcategory);
+//        in = new ObjectInputStream(is);
+//        // Method for deserialization of object
+//        subcategory = (HashMap<String, Integer>) in.readObject();
+//        in.close();
+//        subcategoryN = subcategory.size();
+//
+//        is = this.c.getApplicationContext().getResources().openRawResource(R.raw.category);
+//        in = new ObjectInputStream(is);
+//        // Method for deserialization of object
+//        category = (HashMap<String, Integer>) in.readObject();
+//        in.close();
+//        categoryN = category.size();
+//
+//        is = this.c.getApplicationContext().getResources().openRawResource(R.raw.ingrSub);
+//        in = new ObjectInputStream(is);
+//        // Method for deserialization of object
+//        ingrSub = (double[][]) in.readObject();
+//        in.close();
+//
+//        is = this.c.getApplicationContext().getResources().openRawResource(R.raw.ingrCate);
+//        in = new ObjectInputStream(is);
+//        // Method for deserialization of object
+//        ingrCate = (double[][]) in.readObject();
+//        in.close();
     }
  
     // static method to create instance of Singleton class

@@ -96,9 +96,9 @@ public class ApiService {
 
             ArrayList<double[]> rawVectors = MyParser.CookbookHTMLParser(html);
             double[] feature=null;
-            VecManip kk = VecManip.getInstance();
-            //todo get feature from rawVectors
-            feature = kk.compute(rawVectors);
+//            VecManip kk = VecManip.getInstance();
+//            //todo get feature from rawVectors
+//            feature = kk.compute(rawVectors);
 
             //todo check feature is valid
             result.setStatus(true);

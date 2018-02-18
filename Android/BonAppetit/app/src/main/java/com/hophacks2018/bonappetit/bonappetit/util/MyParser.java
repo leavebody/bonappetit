@@ -4,6 +4,9 @@ package com.hophacks2018.bonappetit.bonappetit.util;
  * @author Xiaochen Li
  */
 
+import com.hophacks2018.bonappetit.bonappetit.vector.Matrix;
+import com.hophacks2018.bonappetit.bonappetit.vector.util.Singleton;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -46,10 +49,49 @@ public class MyParser {
      * @return Arraylist<double[] ingredientRawVector, double[] subcataRawVector, double[] cataRawVector>
      *          or null is input is invalid
      */
-    public static ArrayList<double[]> CookbookHTMLParser(String html){
+    public static ArrayList<double[]> CookbookHTMLParser(String html) {
+//        Singleton sin = null;
+//        try{
+//            sin =Singleton.getInstance();
+//        } catch (Exception a){
+//            a.printStackTrace();
+//        }
+//        double[] titleRawVector = new double[sin.ingredientN];
+//        double[] ingredientRawVector = new double[sin.ingredientN];
+//        double[] subcataRawVector;
+//        double[] cataRawVector;
+//        int index1 = html.indexOf("title=\"Edit section: Ingredients\"");
+//        int index2 = html.indexOf("<ul>", index1);
+//        int index3 = html.indexOf("<h2>", index2);
+//
+//        int index4 = html.indexOf("<title>Cookbook:");
+//        int index5 = html.indexOf(" - Wikibooks", index4);
+//        String target = html.substring(index2+4, index3);
+//        target = target.replace("<", " < ");
+//        target = target.replace(">", " > ");
+//        String[] temp = target.toLowerCase().split(" ");
+//
+//        for (String s : temp) {
+//            if (sin.ingredient.containsKey(s)) {
+//                ingredientRawVector[sin.ingredient.get(s)] += 1;
+//            }
+//        }
+//
+//        for (String s : html.substring(index4+16, index5).toLowerCase().split(" ")) {
+//            if (sin.ingredient.containsKey(s)) {
+//                titleRawVector[sin.ingredient.get(s)] += 1;
+//            }
+//        }
+//
+//        subcataRawVector = Matrix.multiply(sin.ingrSub, ingredientRawVector);
+//        cataRawVector = Matrix.multiply(sin.ingrCate, ingredientRawVector);
+        ArrayList<double[]> result = new ArrayList<>(4);
+//        result.add(titleRawVector);
+//        result.add(ingredientRawVector);
+//        result.add(subcataRawVector);
+//        result.add(cataRawVector);
+        return result;
 
-
-        return null;
     }
 
     /**

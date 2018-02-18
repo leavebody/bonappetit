@@ -143,10 +143,10 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         Food food = mFood.get(position);
         Log.d("bind", "viewholder");
 
-        // Set item views based on your views and data model
-        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
-        Bitmap bm = getBitmapFromURL(food.getImage());
-        holder.photo.setBackgroundDrawable(ob);
+//        // Set item views based on your views and data model
+//        BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), StringToBitMap(food.getImage()));
+//        Bitmap bm = getBitmapFromURL(food.getImage());
+//        holder.photo.setBackgroundDrawable(ob);
         holder.textView.setText(food.getRawName());
 
     }
@@ -169,18 +169,5 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
         }
     }
 
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            Log.d("bitmap", "ioexception");
-            return null;
-        }
-    }
+
 }

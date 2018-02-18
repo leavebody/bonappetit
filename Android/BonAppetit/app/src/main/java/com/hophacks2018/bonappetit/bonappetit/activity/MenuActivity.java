@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter.getBitmapFromURL;
 
 public class MenuActivity extends AppCompatActivity {
 

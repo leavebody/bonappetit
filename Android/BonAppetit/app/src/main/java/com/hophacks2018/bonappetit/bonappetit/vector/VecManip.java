@@ -145,22 +145,22 @@ public class VecManip {
         double[] aa4 = Matrix.multiply(mat4, aa.get(3));
 
 
-        int totalLen  = aa1.length + aa2.length + aa3.length + aa4.length;
-        double[] result = new double[totalLen];
-        for (int i = 0; i < aa1.length; i++){
-            result[i] = aa1[i];
-        }
-        int ttl = aa1.length + aa2.length;
-        for (int j = aa1.length; j < ttl; j++){
-            result[j] = aa2[j-aa1.length];
-        }
-        int ttl1 = ttl + aa3.length;
-        for (int j = ttl; j < ttl1; j++){
-            result[j] = aa3[j-ttl];
-        }
-        for (int j = ttl1; j < ttl1+aa4.length; j++){
-            result[j] = aa4[j-ttl1];
-        }
+//        int totalLen  = aa1.length + aa2.length + aa3.length + aa4.length;
+        double[] result = new double[16];
+//        for (int i = 0; i < aa1.length; i++){
+//            result[i] = aa1[i];
+//        }
+//        int ttl = aa1.length + aa2.length;
+//        for (int j = aa1.length; j < ttl; j++){
+//            result[j] = aa2[j-aa1.length];
+//        }
+//        int ttl1 = ttl + aa3.length;
+//        for (int j = ttl; j < ttl1; j++){
+//            result[j] = aa3[j-ttl];
+//        }
+//        for (int j = ttl1; j < ttl1+aa4.length; j++){
+//            result[j] = aa4[j-ttl1];
+//        }
         return result;
     }
 

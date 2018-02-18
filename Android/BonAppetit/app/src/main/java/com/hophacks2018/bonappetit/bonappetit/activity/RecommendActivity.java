@@ -68,18 +68,18 @@ public class RecommendActivity extends AppCompatActivity {
     };
 
     private void sort () {
-        Preference kkk = new Preference();
-        double[] store = new double[foodArrayList.size()];
-        TreeMap<Double, Food> sorted = new TreeMap<>();
-        for (Food fd : foodArrayList) {
-            double storeobj = kkk.computeDot(fd.getFeatureVector());
-            sorted.put(storeobj, fd);
-        }
-        ArrayList<Food> result = new ArrayList<>();
-        for (Map.Entry<Double, Food> entry : sorted.entrySet()) {
-            result.add(entry.getValue());
-        }
-        foodArrayList = result;
+//        Preference kkk = new Preference();
+//        double[] store = new double[foodArrayList.size()];
+//        TreeMap<Double, Food> sorted = new TreeMap<>();
+//        for (Food fd : foodArrayList) {
+//            double storeobj = kkk.computeDot(fd.getFeatureVector());
+//            sorted.put(storeobj, fd);
+//        }
+//        ArrayList<Food> result = new ArrayList<>();
+//        for (Map.Entry<Double, Food> entry : sorted.entrySet()) {
+//            result.add(entry.getValue());
+//        }
+//        foodArrayList = result;
     }
 
 }
