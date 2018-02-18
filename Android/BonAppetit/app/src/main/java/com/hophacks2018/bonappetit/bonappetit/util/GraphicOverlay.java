@@ -106,11 +106,12 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
          * system.
          */
         public float translateX(float x) {
-            if (mOverlay.mFacing == com.google.android.gms.vision.CameraSource.CAMERA_FACING_FRONT) {
-                return mOverlay.getWidth() - scaleX(x);
-            } else {
-                return scaleX(x);
-            }
+//            if (mOverlay.mFacing == com.google.android.gms.vision.CameraSource.CAMERA_FACING_FRONT) {
+//                return mOverlay.getWidth() - scaleX(x);
+//            } else {
+//                return scaleX(x);
+//            }
+            return (float)(1.70) *x;
         }
 
         /**
@@ -118,7 +119,8 @@ public class GraphicOverlay<T extends GraphicOverlay.Graphic> extends View {
          * system.
          */
         public float translateY(float y) {
-            return scaleY(y);
+//            return scaleY(y);
+            return (y+47)*(float)1.70;
         }
 
         public void postInvalidate() {

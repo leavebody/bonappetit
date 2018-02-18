@@ -19,4 +19,20 @@ public final class DBContract {
         public static final String COLUMN_ISLOGGEDIN_NAME = "is_logged_in";
     }
 
+    /* Inner class that defines the table contents */
+    public static class FeatureDB implements BaseColumns {
+        public static final String TABLE_NAME = "feature";
+        public static final String COLUMN_FEATURE = "feature";
+    }
+
+    /* Inner class that defines the table contents */
+    public static class HistoryDB implements BaseColumns {
+        public static final String TABLE_NAME = "history";
+        public static final String COLUMN_DISH_NAME = "dish";
+        public static final String COLUMN_IMAGE_PATH = "path";
+        public static final String COLUMN_RATE = "rate";
+        public static final String COLUMN_TIME = "time";
+
+    }
+
 }
