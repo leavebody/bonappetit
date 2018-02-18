@@ -50,7 +50,9 @@ import com.google.android.gms.vision.text.TextBlock;
 import com.google.android.gms.vision.text.TextRecognizer;
 import com.hophacks2018.bonappetit.bonappetit.R;
 
+import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.models.KnowledgeGraphRaw;
+import com.hophacks2018.bonappetit.bonappetit.models.ScanResult;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSource;
 import com.hophacks2018.bonappetit.bonappetit.util.CameraSourcePreview;
 import com.hophacks2018.bonappetit.bonappetit.util.Globals;
@@ -206,22 +208,20 @@ public final class CameraActivity extends AppCompatActivity {
                                     Globals globals = (Globals)getApplication();
                                     globals.setTextBlockSparseArray(textRecognizer.detect(outputFrame));
 
+                                    globals.setScanResult(new ScanResult(CameraActivity.this, imageFile.toString()));
+                                    ScanResult scanResult = globals.getScanResult();
 
                                     for (int i = 0; i < globals.getTextBlockSparseArray().size(); ++i) {
                                         TextBlock item = globals.getTextBlockSparseArray().valueAt(i);
                                         if (item != null && item.getValue() != null) {
-                                            Log.d("asdfghj", "Text detected! " + item.getValue());
+                                            Food food = new Food(item.getValue(), scanResult, CameraActivity.this);
+                                            scanResult.addFoodItem(food);
                                         }
                                     }
-                                    Log.d("asdfghj", "Text detected finish! ");
+                                    scanResult.finishFilling();
 
-
-                                    //String intentString = BitMapToString(rotatedBitmap);
+                                    Log.d("AndroidFinish", "waiting...................................");
                                     globals.setImagePath(imageFile.toString());
-                                    Intent intent = new Intent(CameraActivity.this, MenuActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    Log.d("AndroidFinish", "Activity finish");
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
