@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.hophacks2018.bonappetit.bonappetit.R;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 import com.hophacks2018.bonappetit.bonappetit.util.FoodAdapter;
+import com.hophacks2018.bonappetit.bonappetit.util.Globals;
 import com.hophacks2018.bonappetit.bonappetit.vector.Preference;
 
 import java.util.ArrayList;
@@ -30,16 +31,18 @@ public class RecommendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recommend);
-
+        Globals globals = (Globals) getApplication();
+        foodArrayList = globals.getScanResult().getAllFoods();
+        this.sort();
         buttonPre = (Button) findViewById(R.id.preButton);
         buttonPre.setOnClickListener(onClickListener);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        foodArrayList = new ArrayList<>();
-        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
-        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
-        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
-        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
+//        foodArrayList = new ArrayList<>();
+//        foodArrayList.add(new Food("mapo doufu", "spicy doufu ", "spicy", ""));
+//        foodArrayList.add(new Food("mapo potato", "spicy potato", "spicy, potato", ""));
+//        foodArrayList.add(new Food("potato chips", "Potato chips ", "potato, chips", ""));
+//        foodArrayList.add(new Food("sushi", "rice and fish ", "fish, raw, rice", ""));
 
         //set Adapter
         foodAdapter = new FoodAdapter(this, foodArrayList);
@@ -64,7 +67,7 @@ public class RecommendActivity extends AppCompatActivity {
         }
     };
 
-    private void Sort () {
+    private void sort () {
         Preference kkk = new Preference();
         double[] store = new double[foodArrayList.size()];
         TreeMap<Double, Food> sorted = new TreeMap<>();
@@ -78,6 +81,5 @@ public class RecommendActivity extends AppCompatActivity {
         }
         foodArrayList = result;
     }
-
 
 }
