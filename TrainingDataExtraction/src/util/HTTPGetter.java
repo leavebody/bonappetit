@@ -8,44 +8,63 @@ import java.net.URL;
 public class HTTPGetter {
 
     private URL url;
+    private int status;
+    private String html;
 
     public HTTPGetter(String url){
         try {
             this.url = new URL(url);
+
+            HttpURLConnection con;
+            StringBuffer content = new StringBuffer();
+
+            try {
+                con = (HttpURLConnection) this.url.openConnection();
+                con.setRequestMethod("GET");
+
+                con.setRequestProperty("Content-Type", "application/json");
+                String contentType = con.getHeaderField("Content-Type");
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+
+                this.status = con.getResponseCode();
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(con.getInputStream()));
+                String inputLine;
+
+                while ((inputLine = in.readLine()) != null) {
+                    content.append(inputLine);
+                }
+                in.close();
+                this.html = content.toString();
+                con.disconnect();
+
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
         } catch (java.net.MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
     public String getHTML() {
-        HttpURLConnection con;
-        StringBuffer content = new StringBuffer();
 
-        try {
-            con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
+        return this.getHtml();
+    }
 
-            con.setRequestProperty("Content-Type", "application/json");
-            String contentType = con.getHeaderField("Content-Type");
-            con.setConnectTimeout(5000);
-            con.setReadTimeout(5000);
+    public int getStatus() {
+        return status;
+    }
 
-            int status = con.getResponseCode();
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(con.getInputStream()));
-            String inputLine;
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
-            while ((inputLine = in.readLine()) != null) {
-                content.append(inputLine);
-            }
-            in.close();
+    public String getHtml() {
+        return html;
+    }
 
-            con.disconnect();
-
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
-
-        return content.toString();
+    public void setHtml(String html) {
+        this.html = html;
     }
 }
