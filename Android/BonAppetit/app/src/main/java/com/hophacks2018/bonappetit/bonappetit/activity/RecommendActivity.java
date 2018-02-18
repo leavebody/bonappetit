@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -76,10 +77,14 @@ public class RecommendActivity extends AppCompatActivity {
             sorted.put(storeobj, fd);
         }
         ArrayList<Food> result = new ArrayList<>();
+        int count = 0;
         for (Map.Entry<Double, Food> entry : sorted.entrySet()) {
             result.add(entry.getValue());
+            count++;
         }
+
         foodArrayList = result;
+        Log.d("lixiang", ""+ count);
     }
 
 }
