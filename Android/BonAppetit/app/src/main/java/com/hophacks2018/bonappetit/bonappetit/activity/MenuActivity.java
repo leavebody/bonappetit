@@ -86,7 +86,7 @@ public class MenuActivity extends AppCompatActivity {
 
         for (int i = 0; i < sparseArray.size(); i++) {
             TextBlock textBlock = (TextBlock) globals.getTextBlockSparseArray().valueAt(i);
-            if (textBlock != null && textBlock.getValue() != null) {
+            if (textBlock != null && textBlock.getValue() != null  && !textBlock.getValue().contains("\n")) {
                 OcrGraphic ocrGraphic = new OcrGraphic(mGraphicOverlay, textBlock);
                 mGraphicOverlay.add(ocrGraphic);
             }
