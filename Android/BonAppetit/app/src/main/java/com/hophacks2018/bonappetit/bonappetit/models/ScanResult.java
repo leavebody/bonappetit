@@ -7,6 +7,7 @@ import java.util.ArrayList;
  */
 
 public class ScanResult {
+    public int foodCount;
     public ArrayList<Food> allFoods;
 
     public ArrayList<Food> getAllFoods() {

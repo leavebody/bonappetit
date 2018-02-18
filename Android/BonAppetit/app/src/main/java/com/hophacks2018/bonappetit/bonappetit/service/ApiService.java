@@ -27,7 +27,7 @@ public class ApiService {
      * @param callback
      */
     public static void getDishName(final Context c, String rawName, final ServiceCallBack<String> callback) {
-        String url = "https://www.bing.com/search?q="+rawName.replace(" ", "+");
+        String url = "https://www.bing.com/search?q="+rawName.replace(" ", "+") + "+wiki";
         ApiRequest request = new ApiRequest(c);
         request.htmlRequest(new VolleyCallback() {
             @Override
@@ -63,7 +63,7 @@ public class ApiService {
             @Override
             public void getModelOnSuccess(ModelResult<String> modelResult) {
                 if (modelResult.isStatus()) {
-                    String url = "https://www.bing.com/search?q=" + modelResult.getModel();
+                    String url = "https://en.wikibooks.org/wiki/Cookbook:" + modelResult.getModel();
                     ApiRequest request = new ApiRequest(c);
                     request.htmlRequest(new VolleyCallback() {
                         @Override

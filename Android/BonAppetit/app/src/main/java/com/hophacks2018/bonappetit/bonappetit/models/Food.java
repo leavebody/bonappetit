@@ -1,6 +1,11 @@
 package com.hophacks2018.bonappetit.bonappetit.models;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+
+import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
+import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
+import com.hophacks2018.bonappetit.bonappetit.service.ServiceCallBack;
 
 /**
  * @author Xiaochen Li
@@ -10,15 +15,54 @@ public class Food {
     private String rawName; // The name recognized from the menu.
     private String name; // The official name of this dish.
     private String description; // Detailed description of the dish got from google knowledge graph.
-    private Bitmap image; //
+    private String image; //
     private double[] ingredientRawVector;
     private double[] subcataRawVector;
     private double[] cataRawVector;
     private double[] featureVector;
-    // todo add info about the position of the item in the menu image
+    private ScanResult father;
+    private static Context c;
+    public boolean isValid = true;
 
+    public Food(String rawName, ScanResult father, Context c) {
+        this.rawName = rawName;
+        this.father = father;
+    }
 
-    public Food(String rawName, String name, String description, Bitmap image) {
+    public void setNameBing(){
+        ApiService.getDishName(c, this.rawName, new ServiceCallBack<String>() {
+            @Override
+            public void getModelOnSuccess(ModelResult<String> modelResult) {
+                if (!modelResult.isStatus()){
+                    Food.this.isValid = false;
+                    return;
+                }
+                Food.this.name = modelResult.getModel();
+
+                ApiService.getKnowledge(Food.c, Food.this.name, new ServiceCallBack<KnowledgeGraphRaw>() {
+                    @Override
+                    public void getModelOnSuccess(ModelResult<KnowledgeGraphRaw> modelResult) {
+                        if (!modelResult.isStatus()){
+                            Food.this.isValid = false;
+                            return;
+                        }
+                        KnowledgeGraphRaw know = modelResult.getModel();
+                        Food.this.description = know.itemListElement.get(0).result.description;
+                        Food.this.image = know.itemListElement.get(0).result.image.url;
+                    }
+                });
+
+                ApiService.getFeature(Food.c, Food.this.name, new ServiceCallBack<double[]>() {
+                    @Override
+                    public void getModelOnSuccess(ModelResult<double[]> modelResult) {
+
+                    }
+                });
+            }
+        });
+    }
+
+    public Food(String rawName, String name, String description, String image) {
         this.rawName = rawName;
         this.name = name;
         this.description = description;
