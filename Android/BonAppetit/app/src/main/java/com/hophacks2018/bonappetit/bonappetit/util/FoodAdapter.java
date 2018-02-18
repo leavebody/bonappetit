@@ -1,18 +1,23 @@
 package com.hophacks2018.bonappetit.bonappetit.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hophacks2018.bonappetit.bonappetit.R;
+import com.hophacks2018.bonappetit.bonappetit.activity.ResultActivity;
 import com.hophacks2018.bonappetit.bonappetit.models.Food;
 
 import java.util.ArrayList;
@@ -44,8 +49,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
             if (position != RecyclerView.NO_POSITION) { // Check if an item was deleted, but the user clicked it before the UI removed it
                 final Food food = mFood.get(position);
                 Toast.makeText(getContext(), food.getName(), Toast.LENGTH_SHORT).show();
-
-                /*final AlertDialog alertDialog = builder.create();
+/*
+                final AlertDialog alertDialog = builder.create();
                 LayoutInflater inflater = alertDialog.getLayoutInflater();
                 View dialoglayout = inflater.inflate(R.layout.layout_food_dialog, null);
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -53,13 +58,39 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
                 builder.show();*/
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService( Context.LAYOUT_INFLATER_SERVICE );
+                View dialogView = inflater.inflate(R.layout.layout_food_dialog,null);
+                // Set the custom layout as alert dialog view
+                builder.setView(dialogView);
 
-                final AlertDialog alertDialog = builder.create();
-                LayoutInflater inflater = alertDialog.getLayoutInflater();
-                View dialoglayout = inflater.inflate(R.layout.layout_food_dialog, null);
+                // Get the custom alert dialog view widgets reference
+                //Button btnCancel = (Button) dialogView.findViewById(R.id.buttonCancel);
+                TextView textName = (TextView) dialogView.findViewById(R.id.foodName);
+                TextView textDetail = (TextView) dialogView.findViewById(R.id.foodDetail);
+                ImageView imageView = (ImageView) dialogView.findViewById(R.id.foodImage);
 
-                builder.setView(dialoglayout);
-                alertDialog.show();
+                textDetail.setText(food.getDescription());
+                textName.setText(food.getName());
+                //todo
+               /* Bitmap bitmap = StringToBitMap(food.getImage());
+                BitmapDrawable ob = new BitmapDrawable(getContext().getResources(), bitmap);
+                imageView.setBackgroundDrawable(ob);*/
+
+                imageView.setBackgroundResource(R.drawable.camera);
+
+                // Create the alert dialog
+                final AlertDialog dialog = builder.create();
+
+                // Set negative/no button click listener
+               /* btnCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Dismiss the alert dialog
+                        dialog.cancel();
+                    }
+                });*/
+
+                dialog.show();
             }
         }
     }
@@ -103,4 +134,17 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.MyViewHolder> 
     public int getItemCount() {
         return mFood.size();
     }
+
+
+    public Bitmap StringToBitMap(String encodedString){
+        try {
+            byte [] encodeByte= Base64.decode(encodedString,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch(Exception e) {
+            e.getMessage();
+            return null;
+        }
+    }
+
 }

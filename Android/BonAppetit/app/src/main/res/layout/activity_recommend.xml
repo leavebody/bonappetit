@@ -7,17 +7,15 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true">
-
-    </android.support.v7.widget.RecyclerView>
+        android:layout_centerInParent="true"></android.support.v7.widget.RecyclerView>
 
     <Button
-        android:id="@+id/nextButton"
+        android:id="@+id/preButton"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/forward"/>
+        android:background="@drawable/back"/>
 </RelativeLayout>

@@ -32,17 +32,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.CameraActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"> </activity>
+        <activity
+            android:name=".activity.MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ResultActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.MenuActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ResultActivity"></activity>
+        <activity android:name=".activity.RecommendActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
