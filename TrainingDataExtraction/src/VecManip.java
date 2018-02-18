@@ -141,8 +141,7 @@ public class VecManip {
         double[] aa2 = Matrix.multiply(mat2, aa.get(1));
         double[] aa3 = Matrix.multiply(mat3, aa.get(2));
         double[] aa4 = Matrix.multiply(mat4, aa.get(3));
-
-
+        
         int totalLen  = aa1.length + aa2.length + aa3.length + aa4.length;
         double[] result = new double[totalLen];
         for (int i = 0; i < aa1.length; i++){
