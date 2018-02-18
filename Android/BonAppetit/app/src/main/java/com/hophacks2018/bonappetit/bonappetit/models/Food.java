@@ -1,7 +1,6 @@
 package com.hophacks2018.bonappetit.bonappetit.models;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import com.hophacks2018.bonappetit.bonappetit.service.ApiService;
 import com.hophacks2018.bonappetit.bonappetit.service.ModelResult;
