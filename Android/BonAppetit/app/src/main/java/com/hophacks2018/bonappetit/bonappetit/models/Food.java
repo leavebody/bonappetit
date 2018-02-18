@@ -58,8 +58,16 @@ public class Food {
                             Food.this.isValid = false;
                         } else {
                             KnowledgeGraphRaw know = modelResult.getModel();
-                            Food.this.description = know.itemListElement.get(0).result.description;
-                            Food.this.image = know.itemListElement.get(0).result.image.url;
+                            try {
+                                Food.this.description = know.itemListElement.get(0).result.description;
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            try{
+                                Food.this.image = know.itemListElement.get(0).result.image.url;
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
                         Food.this.father.doneOne();
                     }
